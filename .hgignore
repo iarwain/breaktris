@@ -1,0 +1,7 @@
+bin/mac/tvb\.dSYM
+bin/mac/tvbd-debug\.log
+bin/mac/tvbd\.dSYM
+bin/mac/tvbp\.dSYM
+build/xcode/build
+build/xcode/TvB\.xcodeproj/rom\.mode1v3
+build/xcode/TvB\.xcodeproj/rom\.pbxuser
