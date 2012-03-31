@@ -40,18 +40,19 @@ private:
 
                 orxSTATUS       Start();
 
-                void            InitUI();
-                void            InitSplash();
-                void            InitScene();
+                orxSTATUS       InitSplash();
+                orxSTATUS       InitT();
+                orxSTATUS       InitB();
 
-                void            ExitUI();
-                void            ExitScene();
+                void            ExitT();
+                void            ExitB();
 
                 void            UpdateGame(const orxCLOCK_INFO &_rstInfo);
-                void            UpdateInput(const orxCLOCK_INFO &_rstInfo);
-                void            UpdateUI(const orxCLOCK_INFO &_rstInfo);
 
                 void            Update(const orxCLOCK_INFO &_rstInfo);
+
+                void            UpdateT(const orxCLOCK_INFO &_rstInfo);
+                void            UpdateB(const orxCLOCK_INFO &_rstInfo);
 
                 orxSTATUS       Init();
                 orxSTATUS       Run();

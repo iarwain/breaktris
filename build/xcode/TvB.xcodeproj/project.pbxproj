@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E09C9BF11526C96300226C7B /* TvB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E09C9BEF1526C96300226C7B /* TvB.cpp */; };
 		E09C9BF21526C96300226C7B /* TvBObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E09C9BF01526C96300226C7B /* TvBObject.cpp */; };
+		E0F2DF201527957600FBF097 /* B.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F2DEA915278CA300FBF097 /* B.cpp */; };
+		E0F2DF211527957600FBF097 /* T.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0F2DEAA15278CA300FBF097 /* T.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		E09C9BEE1526C95100226C7B /* TvBObject.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = TvBObject.h; path = ../../include/TvBObject.h; sourceTree = SOURCE_ROOT; };
 		E09C9BEF1526C96300226C7B /* TvB.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = TvB.cpp; path = ../../src/TvB.cpp; sourceTree = SOURCE_ROOT; };
 		E09C9BF01526C96300226C7B /* TvBObject.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = TvBObject.cpp; path = ../../src/TvBObject.cpp; sourceTree = SOURCE_ROOT; };
+		E0F2DEA915278CA300FBF097 /* B.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = B.cpp; path = ../../src/B.cpp; sourceTree = SOURCE_ROOT; };
+		E0F2DEAA15278CA300FBF097 /* T.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = T.cpp; path = ../../src/T.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,8 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E0F2DEA915278CA300FBF097 /* B.cpp */,
+				E0F2DEAA15278CA300FBF097 /* T.cpp */,
 				E09C9BEF1526C96300226C7B /* TvB.cpp */,
 				E09C9BF01526C96300226C7B /* TvBObject.cpp */,
 			);
@@ -418,6 +424,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0F2DF201527957600FBF097 /* B.cpp in Sources */,
+				E0F2DF211527957600FBF097 /* T.cpp in Sources */,
 				E09C9BF11526C96300226C7B /* TvB.cpp in Sources */,
 				E09C9BF21526C96300226C7B /* TvBObject.cpp in Sources */,
 			);

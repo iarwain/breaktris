@@ -91,13 +91,10 @@ orxSTATUS TvB::Start()
   return eResult;
 }
 
-void TvB::InitUI()
+orxSTATUS TvB::InitSplash()
 {
-  //! TODO
-}
+  orxSTATUS eResult = orxSTATUS_SUCCESS;
 
-void TvB::InitSplash()
-{
   // Not in editor mode?
   if(!IsEditorMode())
   {
@@ -116,24 +113,9 @@ void TvB::InitSplash()
     // Loads menu
     LoadMenu();
   }
-}
 
-void TvB::InitScene()
-{
-  //! TODO
-
-  // Creates scene
-  mpoScene = CreateObject("Scene");
-}
-
-void TvB::ExitUI()
-{
-}
-
-void TvB::ExitScene()
-{
-  // Deletes scene
-  DeleteObject(mpoScene);
+  // Done!
+  return eResult;
 }
 
 void TvB::UpdateGame(const orxCLOCK_INFO &_rstInfo)
@@ -141,35 +123,9 @@ void TvB::UpdateGame(const orxCLOCK_INFO &_rstInfo)
   // Updates in game time
   mfTime += _rstInfo.fDT;
 
-  // Updates input
-  UpdateInput(_rstInfo);
-
-  // Updates UI
-  UpdateUI(_rstInfo);
-
-  //! TODO
-}
-
-void TvB::UpdateInput(const orxCLOCK_INFO &_rstInfo)
-{
-  orxVECTOR vMousePos;
-
-  // Pushes game section
-  orxConfig_PushSection(szConfigSectionGame);
-
-  // Gets world mouse position
-  if(orxRender_GetWorldPosition(orxMouse_GetPosition(&vMousePos), &vMousePos) != orxNULL)
-  {
-    //! TODO
-  }
-
-  // Pops config section
-  orxConfig_PopSection();
-}
-
-void TvB::UpdateUI(const orxCLOCK_INFO &_rstInfo)
-{
-  //! TODO
+  // Updates games
+  UpdateT(_rstInfo);
+  UpdateB(_rstInfo);
 }
 
 void TvB::Update(const orxCLOCK_INFO &_rstInfo)
@@ -232,12 +188,13 @@ orxSTATUS TvB::Init()
   // Inits splash screen
   InitSplash();
 
-  // Inits UI
-  InitUI();
+  // Inits games
+  InitT();
+  InitB();
 
-  // Inits scene
-  InitScene();
-
+  // Creates scene
+  mpoScene = CreateObject("Scene");
+  
   // Pops config section
   orxConfig_PopSection();
 
@@ -268,11 +225,9 @@ void TvB::Exit()
   // Removes event handler
   orxEvent_RemoveHandler(orxEVENT_TYPE_OBJECT, EventHandler);
 
-  // Exits from scene
-  ExitScene();
-
-  // Exits from UI
-  ExitUI();
+  // Exits from games
+  ExitT();
+  ExitB();
 }
 
 void TvB::BindObjects()
