@@ -95,7 +95,7 @@
 		E01C6592139B673300423E63 /* ScrollEd.inl */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; path = ScrollEd.inl; sourceTree = "<group>"; };
 		E01C6593139B673300423E63 /* ScrollObject.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = ScrollObject.h; sourceTree = "<group>"; };
 		E01C6594139B673300423E63 /* ScrollObject.inl */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; path = ScrollObject.inl; sourceTree = "<group>"; };
-		E059AAE30F22ECCA00900DF0 /* tvbp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tvbp; sourceTree = BUILT_PRODUCTS_DIR; };
+		E059AAE30F22ECCA00900DF0 /* tvbd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tvbd; sourceTree = BUILT_PRODUCTS_DIR; };
 		E09C9BED1526C95100226C7B /* TvB.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = TvB.h; path = ../../include/TvB.h; sourceTree = SOURCE_ROOT; };
 		E09C9BEE1526C95100226C7B /* TvBObject.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = TvBObject.h; path = ../../include/TvBObject.h; sourceTree = SOURCE_ROOT; };
 		E09C9BEF1526C96300226C7B /* TvB.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = TvB.cpp; path = ../../src/TvB.cpp; sourceTree = SOURCE_ROOT; };
@@ -120,7 +120,7 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E059AAE30F22ECCA00900DF0 /* tvbp */,
+				E059AAE30F22ECCA00900DF0 /* tvbd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -384,9 +384,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E059AAE20F22ECCA00900DF0 /* entzun */ = {
+		E059AAE20F22ECCA00900DF0 /* tvb */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E059AAEC0F22ED3700900DF0 /* Build configuration list for PBXNativeTarget "entzun" */;
+			buildConfigurationList = E059AAEC0F22ED3700900DF0 /* Build configuration list for PBXNativeTarget "tvb" */;
 			buildPhases = (
 				E059AAE00F22ECCA00900DF0 /* Sources */,
 				E059AAE10F22ECCA00900DF0 /* Frameworks */,
@@ -395,9 +395,9 @@
 			);
 			dependencies = (
 			);
-			name = entzun;
+			name = tvb;
 			productName = orx;
-			productReference = E059AAE30F22ECCA00900DF0 /* tvbp */;
+			productReference = E059AAE30F22ECCA00900DF0 /* tvbd */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -420,7 +420,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E059AAE20F22ECCA00900DF0 /* entzun */,
+				E059AAE20F22ECCA00900DF0 /* tvb */,
 			);
 		};
 /* End PBXProject section */
@@ -753,7 +753,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E059AAEC0F22ED3700900DF0 /* Build configuration list for PBXNativeTarget "entzun" */ = {
+		E059AAEC0F22ED3700900DF0 /* Build configuration list for PBXNativeTarget "tvb" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E059AAE60F22ECCB00900DF0 /* Debug */,

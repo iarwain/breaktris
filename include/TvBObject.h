@@ -30,6 +30,9 @@ class TvBBrick : public ScrollObject
   void                    OnCreate();
   void                    OnDelete();
   void                    Update(const orxCLOCK_INFO &_rstInfo);
+  orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
+  
+  orxS32                  s32HP;
 };
 
 #endif // __TVB_OBJECT_H__
