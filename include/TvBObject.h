@@ -15,4 +15,19 @@ class TvBPaddle : public ScrollObject
         void                    Update(const orxCLOCK_INFO &_rstInfo);
 };
 
+class TvBBall : public ScrollObject
+{
+  void                    OnCreate();
+  void                    OnDelete();
+  void                    Update(const orxCLOCK_INFO &_rstInfo);
+  orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
+};
+
+class TvBBrick : public ScrollObject
+{
+  void                    OnCreate();
+  void                    OnDelete();
+  void                    Update(const orxCLOCK_INFO &_rstInfo);
+};
+
 #endif // __TVB_OBJECT_H__
