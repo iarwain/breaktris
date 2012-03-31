@@ -21,6 +21,8 @@ class TvBBall : public ScrollObject
   void                    OnDelete();
   void                    Update(const orxCLOCK_INFO &_rstInfo);
   orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
+  
+  orxVECTOR vSpeed;
 };
 
 class TvBBrick : public ScrollObject

@@ -65,6 +65,8 @@ private:
                 orxOBJECT *     mpstPauseObject;
                 ScrollObject *  mpoScene;
                 orxFLOAT        mfTime;
+  
+                orxVECTOR       vPlayTL, vPlayBR;
 };
 
 #endif // __TVB_H_
