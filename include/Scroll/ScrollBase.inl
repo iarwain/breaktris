@@ -1174,10 +1174,10 @@ orxSTATUS ScrollBase::BaseInit()
       orxMemory_Zero(&mstObjectChronoList, sizeof(orxLINKLIST));
 
       // Creates main viewport
-      mpstMainViewport = orxNULL;//orxViewport_CreateFromConfig(szConfigMainViewport);
+      mpstMainViewport = orxViewport_CreateFromConfig(szConfigMainViewport);
 
       // Gets main camera
-      mpstMainCamera = orxNULL;//orxViewport_GetCamera(mpstMainViewport);
+      mpstMainCamera = orxViewport_GetCamera(mpstMainViewport);
 
       // Sets default layer
       SetLayerNumber(1);

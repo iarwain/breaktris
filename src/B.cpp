@@ -8,23 +8,11 @@
 //! Code
 orxSTATUS TvB::InitB()
 {
-  orxVECTOR vSize;
-  orxBITMAP *pstBitmap;
-  orxTEXTURE *pstTexture;
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
-  // Pushes B config
-  orxConfig_PushSection("B");
-
-  // Creates background texture
-  orxConfig_GetVector("TextureSize", &vSize);
-  pstBitmap  = orxDisplay_CreateBitmap(vSize.fX, vSize.fY);
-  pstTexture = orxTexture_Create();
-  orxTexture_LinkBitmap(pstTexture, pstBitmap, "BTexture");
-
-  // Pops config section
-  orxConfig_PopSection();
-
+  // Creates viewport
+  orxViewport_CreateFromConfig("BViewport");
+  
   // Creates scene
   CreateObject("BScene");
 

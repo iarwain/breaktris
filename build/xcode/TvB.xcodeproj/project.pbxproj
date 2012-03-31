@@ -93,7 +93,7 @@
 		E01C6592139B673300423E63 /* ScrollEd.inl */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; path = ScrollEd.inl; sourceTree = "<group>"; };
 		E01C6593139B673300423E63 /* ScrollObject.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = ScrollObject.h; sourceTree = "<group>"; };
 		E01C6594139B673300423E63 /* ScrollObject.inl */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; path = ScrollObject.inl; sourceTree = "<group>"; };
-		E059AAE30F22ECCA00900DF0 /* tvbd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tvbd; sourceTree = BUILT_PRODUCTS_DIR; };
+		E059AAE30F22ECCA00900DF0 /* tvb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tvb; sourceTree = BUILT_PRODUCTS_DIR; };
 		E09C9BED1526C95100226C7B /* TvB.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = TvB.h; path = ../../include/TvB.h; sourceTree = SOURCE_ROOT; };
 		E09C9BEE1526C95100226C7B /* TvBObject.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = TvBObject.h; path = ../../include/TvBObject.h; sourceTree = SOURCE_ROOT; };
 		E09C9BEF1526C96300226C7B /* TvB.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = TvB.cpp; path = ../../src/TvB.cpp; sourceTree = SOURCE_ROOT; };
@@ -116,7 +116,7 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E059AAE30F22ECCA00900DF0 /* tvbd */,
+				E059AAE30F22ECCA00900DF0 /* tvb */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -391,7 +391,7 @@
 			);
 			name = entzun;
 			productName = orx;
-			productReference = E059AAE30F22ECCA00900DF0 /* tvbd */;
+			productReference = E059AAE30F22ECCA00900DF0 /* tvb */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
