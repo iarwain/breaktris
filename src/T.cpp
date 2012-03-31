@@ -12,7 +12,7 @@ orxSTATUS TvB::InitT()
 
   // Creates viewport
   orxViewport_CreateFromConfig("TViewport");
-  
+
   // Creates scene
   orxObject_CreateFromConfig("TScene");
 
