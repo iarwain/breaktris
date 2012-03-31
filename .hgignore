@@ -5,3 +5,5 @@ bin/mac/tvbp\.dSYM
 build/xcode/build
 build/xcode/TvB\.xcodeproj/rom\.mode1v3
 build/xcode/TvB\.xcodeproj/rom\.pbxuser
+bin/mac/dev\.ini
+bin/mac/tvbd\.log

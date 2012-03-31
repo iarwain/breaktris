@@ -26,5 +26,4 @@ void TvB::ExitB()
 
 void TvB::UpdateB(const orxCLOCK_INFO &_rstInfo)
 {
-  //! TODO
 }

@@ -2,6 +2,7 @@
 #define __SCROLL_IMPL__
 #include "TvB.h"
 #undef __SCROLL_IMPL__
+#include "TvBObject.h"
 
 
 //! Constants
@@ -236,6 +237,7 @@ void TvB::BindObjects()
   orxConfig_PushSection(szConfigSectionGame);
 
   // Binds objects
+  ScrollBindObject<TvBPaddle>("Paddle");
 
   //! TODO
 
