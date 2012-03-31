@@ -238,6 +238,12 @@ void TvB::BindObjects()
 
   // Binds objects
   ScrollBindObject<TvBPaddle>("Paddle");
+  ScrollBindObject<TvBBall>("Ball");
+
+  for(orxS32 i = 0; i < orxConfig_GetListCounter("BrickList"); i++)
+  {
+    ScrollBindObject<TvBBrick>(orxConfig_GetListString("BrickList", i));
+  }
 
   //! TODO
 
