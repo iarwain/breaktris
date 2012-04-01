@@ -65,9 +65,44 @@ orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
   return eResult;
 }
 
+orxSTATUS TvB::GetGridPosition(const orxVECTOR &_rvPos, orxS32 &_rs32X, orxS32 &_rs32Y) const
+{
+  orxVECTOR vOrigin, vBrickSize, vPos;
+  orxSTATUS eResult = orxSTATUS_FAILURE;
+
+  // Push T config section
+  orxConfig_PushSection("T");
+  
+  // Gets grid origin
+  orxConfig_GetVector("GridOrigin", &vOrigin);
+
+  // Gets brick size
+  orxConfig_GetVector("TetroBrickSize", &vBrickSize);
+
+  // Gets relative pos
+  orxVector_Sub(&vPos, &_rvPos, &vOrigin);
+
+  // Normalizes it
+  orxVector_Div(&vPos, &vPos, &vBrickSize);
+
+  // Stores coords
+  _rs32X = vPos.fX;
+  _rs32Y = vPos.fY;
+
+  // Updates result
+  eResult = ((_rs32X >= 0) && (_rs32X < s32GridWidth) && (_rs32Y >= 0) && (_rs32Y < s32GridHeight)) ? orxSTATUS_SUCCESS : orxSTATUS_FAILURE;
+
+  // Pops config section
+  orxConfig_PopSection();
+
+  // Done!
+  return eResult;
+}
+
 void TvB::LoadMenu()
 {
   //! TODO
+
   // Starts
   Start();
 }

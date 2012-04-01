@@ -76,6 +76,7 @@ public:
   
                 void            AddBLine(LineType _eType);
 
+                orxSTATUS       GetGridPosition(const orxVECTOR &_rvPos, orxS32 &_rs32X, orxS32 &_rs32Y) const;
 
 private:
 
@@ -110,7 +111,8 @@ private:
                 orxVECTOR       vBrickSize;
                 orxVECTOR       vPlayTL, vPlayBR;
 
-                TvBBrick       *apoGrid[20][10];
+                orxU64          *au64Grid;
+                orxS32          s32GridWidth, s32GridHeight;
                 TvBTetromino   *poSelection;
                 orxFLOAT        fFallTime;
 };

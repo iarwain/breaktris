@@ -53,6 +53,7 @@ class TvBTetromino : public ScrollObject
   void                    Update(const orxCLOCK_INFO &_rstInfo);
 
   orxBOOL                 IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) const;
+  void                    Validate();
 
   orxS32                  s32Rotation;
   

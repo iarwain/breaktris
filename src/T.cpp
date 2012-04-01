@@ -7,22 +7,23 @@
 //! Code
 orxSTATUS TvB::InitT()
 {
+  orxVECTOR vGridSize;
   orxSTATUS eResult = orxSTATUS_SUCCESS;
+
+  // Inits grid
+  orxConfig_PushSection("T");
+  orxConfig_GetVector("GridSize", &vGridSize);
+  s32GridWidth = orxF2S(vGridSize.fX);
+  s32GridHeight = orxF2S(vGridSize.fY);
+  orxConfig_PopSection();
+  au64Grid = (orxU64 *)orxMemory_Allocate(s32GridWidth * s32GridHeight * sizeof(orxU64), orxMEMORY_TYPE_MAIN);
+  orxMemory_Zero(au64Grid, s32GridWidth * s32GridHeight * sizeof(orxU64));
 
   // Creates viewport
   orxViewport_CreateFromConfig("TViewport");
 
   // Creates scene
   orxObject_CreateFromConfig("TScene");
-  
-  // Clears grid
-  for(orxS32 i = 0; i < 20; i++)
-  {
-    for(orxS32 j = 0; j < 10; j++)
-    {
-      apoGrid[i][j] = orxNULL;
-    }
-  }
 
   // Clears vars
   poSelection = orxNULL;
@@ -34,6 +35,8 @@ orxSTATUS TvB::InitT()
 
 void TvB::ExitT()
 {
+  orxMemory_Free(au64Grid);
+  au64Grid = orxNULL;
 }
 
 void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
