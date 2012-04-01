@@ -214,6 +214,9 @@ orxSTATUS TvB::Init()
 {
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
+  // Inits random seed
+  orxMath_InitRandom(orxSystem_GetRealTime());
+  
   // Pushes game section
   orxConfig_PushSection(szConfigSectionGame);
 
