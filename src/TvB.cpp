@@ -99,6 +99,16 @@ orxSTATUS TvB::GetGridPosition(const orxVECTOR &_rvPos, orxS32 &_rs32X, orxS32 &
   return eResult;
 }
 
+orxU64 TvB::GetGridValue(orxS32 _s32X, orxS32 _s32Y) const
+{
+  return au64Grid[_s32X + _s32Y * s32GridWidth];
+}
+
+void TvB::SetGridValue(orxS32 _s32X, orxS32 _s32Y, orxU64 _u64Value)
+{
+  au64Grid[_s32X + _s32Y * s32GridWidth] = _u64Value;
+}
+
 void TvB::LoadMenu()
 {
   //! TODO
@@ -227,6 +237,7 @@ orxSTATUS TvB::Init()
   mpstPauseObject   = orxNULL;
   mpoScene          = orxNULL;
   mfTime            = orxFLOAT_0;
+  au64Grid          = orxNULL;
 
   // Inits splash screen
   InitSplash();

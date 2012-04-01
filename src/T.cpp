@@ -35,8 +35,11 @@ orxSTATUS TvB::InitT()
 
 void TvB::ExitT()
 {
-  orxMemory_Free(au64Grid);
-  au64Grid = orxNULL;
+  if(au64Grid != orxNULL)
+  {
+    orxMemory_Free(au64Grid);
+    au64Grid = orxNULL;
+  }
 }
 
 void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)

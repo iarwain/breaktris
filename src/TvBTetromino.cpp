@@ -100,7 +100,24 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
 
 void TvBTetromino::Validate()
 {
-  //! TODO
+  // For all children
+  for(orxOBJECT *pstChild = orxObject_GetChild(GetOrxObject());
+      pstChild != orxNULL;
+      pstChild = orxObject_GetSibling(pstChild))
+  {
+    orxVECTOR vPos;
+    orxS32    s32X, s32Y;
+    
+    // Gets its position
+    orxObject_GetPosition(pstChild, &vPos);
+    
+    // Gets its grid position
+    if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
+    {
+      // Stores GUID
+      TvB::GetInstance().SetGridValue(s32X, s32Y, GetGUID());
+    }
+  }
 }
 
 orxBOOL TvBTetromino::Move(const orxVECTOR &_rvPos, orxS32 _s32Rotation)
