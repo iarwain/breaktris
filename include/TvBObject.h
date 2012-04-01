@@ -52,7 +52,13 @@ class TvBTetromino : public ScrollObject
   void                    OnDelete();
   void                    Update(const orxCLOCK_INFO &_rstInfo);
 
+  orxBOOL                 IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) const;
+
+  orxS32                  s32Rotation;
+  
+public:
   void                    Land();
+  orxBOOL                 Move(const orxVECTOR &_rvPos, orxS32 _s32Rotation);
 };
 
 #endif // __TVB_OBJECT_H__

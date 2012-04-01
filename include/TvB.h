@@ -112,6 +112,7 @@ private:
 
                 TvBBrick       *apoGrid[20][10];
                 TvBTetromino   *poSelection;
+                orxFLOAT        fFallTime;
 };
 
 #endif // __TVB_H_

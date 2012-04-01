@@ -133,7 +133,8 @@ void TvB::AddBLine(LineType _eType)
     // Game over?
     if(vPos.fY > vPlayBR.fY)
     {
-      //! TODO: You lose!
+      //! TODO: Game over
+      meGameState = GameStateEnd;
     }
   }
 

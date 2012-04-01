@@ -179,9 +179,6 @@ orxSTATUS TvB::Init()
 {
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
-  // Filters logs
-  orxDEBUG_ENABLE_LEVEL(orxDEBUG_LEVEL_RENDER, orxFALSE);
-  
   // Pushes game section
   orxConfig_PushSection(szConfigSectionGame);
 

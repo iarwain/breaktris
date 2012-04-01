@@ -12,6 +12,12 @@ void TvBBall::OnCreate()
 void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
 {
   orxVECTOR vPos;
+
+  // Game over?
+  if(TvB::GetInstance().GetGameState() == TvB::GameStateEnd)
+  {
+    orxVector_Copy(&vSpeed, &orxVECTOR_0);
+  }
   
   // Going out?
   if(GetPosition(vPos).fY > orxConfig_GetFloat("Bottom"))
