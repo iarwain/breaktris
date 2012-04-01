@@ -204,7 +204,7 @@ void TvBTetromino::Validate()
     orxS32    s32X, s32Y;
     
     // Gets its position
-    orxObject_GetPosition(pstChild, &vPos);
+    orxObject_GetWorldPosition(pstChild, &vPos);
     
     // Gets its grid position
     if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
