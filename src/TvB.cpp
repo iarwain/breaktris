@@ -109,6 +109,12 @@ void TvB::SetGridValue(orxS32 _s32X, orxS32 _s32Y, orxU64 _u64Value)
   au64Grid[_s32X + _s32Y * s32GridWidth] = _u64Value;
 }
 
+void TvB::GetGridSize(orxS32 &_rs32Width, orxS32 &_rs32Height) const
+{
+  _rs32Width  = s32GridWidth;
+  _rs32Height = s32GridHeight;
+}
+
 void TvB::LoadMenu()
 {
   //! TODO
@@ -272,6 +278,8 @@ orxSTATUS TvB::Run()
 
 void TvB::Exit()
 {
+  meGameState = GameStateEnd;
+
   // Removes event handler
   orxEvent_RemoveHandler(orxEVENT_TYPE_OBJECT, EventHandler);
 

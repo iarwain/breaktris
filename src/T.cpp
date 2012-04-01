@@ -100,12 +100,18 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   {
     // Moves it
     poSelection->Move(orxVECTOR_0, 1);
+    
+    // Adds sound
+    poSelection->AddSound("RotateRight");
   }
   // Rotate CCW?
   else if(orxInput_IsActive("RotateCCW") && orxInput_HasNewStatus("RotateCCW"))
   {
     // Moves it
     poSelection->Move(orxVECTOR_0, 1);
+    
+    // Adds sound
+    poSelection->AddSound("RotateLeft");
   }
   
   // Should fall?

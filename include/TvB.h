@@ -79,6 +79,8 @@ public:
                 orxSTATUS       GetGridPosition(const orxVECTOR &_rvPos, orxS32 &_rs32X, orxS32 &_rs32Y) const;
                 orxU64          GetGridValue(orxS32 _s32X, orxS32 _s32Y) const;
                 void            SetGridValue(orxS32 _s32X, orxS32 _s32Y, orxU64 _u64Value);
+  
+                void            GetGridSize(orxS32 &_rs32Width, orxS32 &_rs32Height) const;
 
   
 private:

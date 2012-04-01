@@ -23,6 +23,19 @@ void TvBBrick::Update(const orxCLOCK_INFO &_rstInfo)
 
 void TvBBrick::OnDelete()
 {
+  // In game?
+  if(TvB::GetInstance().GetGameState() == TvB::GameStateRun)
+  {
+    orxVECTOR vPos;
+    orxS32    s32X, s32Y;
+
+    // On grid?
+    if(TvB::GetInstance().GetGridPosition(GetPosition(vPos, orxTRUE), s32X, s32Y) != orxSTATUS_FAILURE)
+    {
+      // Clears it
+      TvB::GetInstance().SetGridValue(s32X, s32Y, 0);
+    }
+  }
 }
 
 orxBOOL TvBBrick::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
