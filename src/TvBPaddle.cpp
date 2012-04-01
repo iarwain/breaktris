@@ -27,3 +27,7 @@ void TvBPaddle::Update(const orxCLOCK_INFO &_rstInfo)
 void TvBPaddle::OnDelete()
 {
 }
+
+orxBOOL TvBPaddle::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
+{
+}

@@ -13,6 +13,17 @@ class TvB : public Scroll<TvB>
 {
 public:
 
+  enum EventID
+  {
+    EventIDWarpIn = 0,
+    EventIDWarpOut,
+    EventIDAddLine,
+    
+    EventIDNumber,
+    
+    EventIDNone = orxENUM_NONE
+  };
+  
   enum GameState
   {
     GameStateSplash = 0,
@@ -27,6 +38,34 @@ public:
 
   };
 
+  enum LineType
+  {
+    LineTypeDefault = 0,
+    
+    LineTypeNumber,
+    
+    LineTypeNone = orxENUM_NONE
+  };
+
+  struct EventPayload
+  {
+    union
+    {
+      struct
+      {
+        orxVECTOR vPos;
+        orxVECTOR vSpeed;
+
+      } stWarp;
+
+      struct
+      {
+        LineType eType;
+
+      } stAddLine;
+    };
+  };
+  
                 orxFLOAT        GetTime() const         {return mfTime;}
                 orxOBJECT *     GetCameraObject() const {return mpstCameraObject;}
                 GameState       GetGameState() const    {return meGameState;}
@@ -34,6 +73,8 @@ public:
                 void            ClearSplashObject()     {mpstSplashObject = orxNULL;}
 
                 void            LoadMenu();
+  
+                void            AddBLine(LineType _eType);
 
 
 private:
@@ -66,6 +107,7 @@ private:
                 ScrollObject *  mpoScene;
                 orxFLOAT        mfTime;
   
+                orxVECTOR       vBrickSize;
                 orxVECTOR       vPlayTL, vPlayBR;
 };
 

@@ -6,9 +6,50 @@
 
 
 //! Code
+static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
+{
+  orxSTATUS eResult = orxSTATUS_SUCCESS;
+
+  // Depending on ID
+  switch(_pstEvent->eID)
+  {
+    case TvB::EventIDWarpIn:
+    {
+      TvB::EventPayload *pstPayload;
+      TvBBall *poBall;
+      
+      // Gets payload
+      pstPayload = (TvB::EventPayload *)_pstEvent->pstPayload;
+
+      // Gets ball
+      poBall = TvB::GetInstance().GetNextObject<TvBBall>();
+
+      // Respawns
+      pstPayload->stWarp.vSpeed.fY *= -orxFLOAT_1;
+      poBall->Respawn(&pstPayload->stWarp.vPos, &pstPayload->stWarp.vSpeed);
+    }
+      
+    case TvB::EventIDAddLine:
+    {
+      // Add a line
+      TvB::GetInstance().AddBLine(((TvB::EventPayload *)_pstEvent->pstPayload)->stAddLine.eType);
+
+      break;
+    }
+      
+    default:
+    {
+      break;
+    }
+  }
+  
+  // Done!
+  return eResult;
+}
+
 orxSTATUS TvB::InitB()
 {
-  orxVECTOR vBrickSize, vOffset, vPos;
+  orxVECTOR vPos;
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
   orxConfig_PushSection("B");
@@ -16,8 +57,6 @@ orxSTATUS TvB::InitB()
   orxConfig_GetListVector("Playground", 0, &vPlayTL);
   orxConfig_GetListVector("Playground", 1, &vPlayBR);
   orxConfig_GetVector("BrickSize", &vBrickSize);
-
-  orxVector_Copy(&vOffset, &vBrickSize);
 
   orxVector_Copy(&vPos, &vPlayTL);
 
@@ -35,10 +74,10 @@ orxSTATUS TvB::InitB()
       {
         poBrick->SetPosition(vPos);
       }
-      vPos.fX += vOffset.fX;
+      vPos.fX += vBrickSize.fX;
     }
 
-    vPos.fY += vOffset.fY;
+    vPos.fY += vBrickSize.fY;
   }
   
   orxConfig_PopSection();
@@ -49,14 +88,51 @@ orxSTATUS TvB::InitB()
   // Creates scene
   CreateObject("BScene");
 
+  // Adds event handler
+  orxEvent_AddHandler(orxEVENT_TYPE_USER_DEFINED, EventHandler);
+
   // Done!
   return eResult;
 }
 
 void TvB::ExitB()
 {
+  // Removes event handler
+  orxEvent_RemoveHandler(orxEVENT_TYPE_USER_DEFINED, EventHandler);
 }
 
 void TvB::UpdateB(const orxCLOCK_INFO &_rstInfo)
 {
+  if(orxInput_IsActive("Action") && orxInput_HasNewStatus("Action"))
+  {
+    AddBLine(LineTypeDefault);
+  }
+}
+
+void TvB::AddBLine(LineType _eType)
+{
+  // For all bricks
+  for(TvBBrick *poBrick = GetNextObject<TvBBrick>();
+      poBrick != NULL;
+      poBrick = GetNextObject<TvBBrick>(poBrick))
+  {
+    orxVECTOR vPos;
+
+    // Gets its position
+    poBrick->GetPosition(vPos);
+
+    // Updates it
+    vPos.fY += vBrickSize.fY;
+
+    // Updates brick
+    poBrick->SetPosition(vPos);
+    
+    // Game over?
+    if(vPos.fY > vPlayBR.fY)
+    {
+      //! TODO: You lose!
+    }
+  }
+
+  //! TODO: Add new line(s)
 }

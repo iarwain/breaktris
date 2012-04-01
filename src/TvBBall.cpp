@@ -6,11 +6,28 @@
 void TvBBall::OnCreate()
 {
   orxObject_GetSpeed(GetOrxObject(), &vSpeed);
+  GetPosition(vInitPos);
 }
 
 void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
 {
-  orxObject_SetSpeed(GetOrxObject(), &vSpeed);
+  orxVECTOR vPos;
+  
+  // Going out?
+  if(GetPosition(vPos).fY > orxConfig_GetFloat("Bottom"))
+  {
+    // Respawns
+    Respawn();
+  }
+  else if(vPos.fY < orxConfig_GetFloat("Top"))
+  {
+    // Warps
+    Warp();
+  }
+  else
+  {
+    orxObject_SetSpeed(GetOrxObject(), &vSpeed);
+  }
 }
 
 void TvBBall::OnDelete()
@@ -19,17 +36,53 @@ void TvBBall::OnDelete()
 
 orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
 {
-  // Vertical?
-  if(orxMath_Abs(_rvNormal.fX) > orxMath_Abs(_rvNormal.fY))
+  // Left?
+  if(_rvNormal.fX > orx2F(0.5f))
   {
     // Updates speed
-    vSpeed.fX *= -orxFLOAT_1;
+    vSpeed.fX = orxMath_Abs(vSpeed.fX);
   }
-  else
+  // Right
+  else if(_rvNormal.fX < orx2F(-0.5f))
   {
     // Updates speed
-    vSpeed.fY *= -orxFLOAT_1;
+    vSpeed.fX = -orxMath_Abs(vSpeed.fX);
+  }
+  // Top?
+  if(_rvNormal.fY > orx2F(0.5f))
+  {
+    // Updates speed
+    vSpeed.fY = orxMath_Abs(vSpeed.fY);
+  }
+  // Bottom
+  else if(_rvNormal.fY < orx2F(-0.5f))
+  {
+    // Updates speed
+    vSpeed.fY = -orxMath_Abs(vSpeed.fY);
   }
 
   return orxTRUE;
+}
+
+void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
+{
+  // Resets ball
+  Enable(orxFALSE, orxTRUE);
+  Enable(orxTRUE, orxFALSE);
+
+  // Resets potision & speed
+  SetPosition((_pvPos != orxNULL) ? *_pvPos : vInitPos);
+  orxObject_SetSpeed(GetOrxObject(), (_pvSpeed != orxNULL) ? _pvSpeed : orxConfig_GetVector("Speed", &vSpeed));
+}
+
+void TvBBall::Warp()
+{
+  orxEVENT stEvent;
+
+  // Sends warp out event
+  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, TvB::EventIDWarpOut, this, orxNULL, orxNULL);
+  orxEvent_Send(&stEvent);
+
+  // Disables ball
+  Enable(orxFALSE, orxTRUE);
 }

@@ -13,16 +13,27 @@ class TvBPaddle : public ScrollObject
         void                    OnCreate();
         void                    OnDelete();
         void                    Update(const orxCLOCK_INFO &_rstInfo);
+        orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
 };
 
 class TvBBall : public ScrollObject
 {
-  void                    OnCreate();
-  void                    OnDelete();
-  void                    Update(const orxCLOCK_INFO &_rstInfo);
-  orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
+        void                    OnCreate();
+        void                    OnDelete();
+        void                    Update(const orxCLOCK_INFO &_rstInfo);
+        orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
+
+        void                    Warp();
+
   
-  orxVECTOR vSpeed;
+public:
+  
+        void                    Respawn(const orxVECTOR *_pvPos = orxNULL, const orxVECTOR *_pvSpeed = orxNULL);
+  
+  
+private:
+  
+  orxVECTOR vSpeed, vInitPos;
 };
 
 class TvBBrick : public ScrollObject
