@@ -36,6 +36,8 @@ void TvBBall::OnDelete()
 
 orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
 {
+  TvBPaddle *poPaddle;
+
   // Left?
   if(_rvNormal.fX > orx2F(0.5f))
   {
@@ -61,6 +63,23 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
     vSpeed.fY = -orxMath_Abs(vSpeed.fY);
   }
 
+  // Gets paddle
+  poPaddle = TvB::GetInstance().GetNextObject<TvBPaddle>();
+  
+  // Colliding with the paddle?
+  if(_poCollider == poPaddle)
+  {
+    orxVECTOR vOffset, vPos1, vPos2;
+    
+    // Gets offset
+    orxVector_Sub(&vOffset, &GetPosition(vPos1, orxTRUE), &poPaddle->GetPosition(vPos2, orxTRUE));
+
+    // Updates speed
+    PushConfigSection();
+    vSpeed.fX += orxConfig_GetFloat("ReactionScale") * vOffset.fX;
+    PopConfigSection();
+  }
+  
   return orxTRUE;
 }
 
