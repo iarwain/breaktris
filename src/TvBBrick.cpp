@@ -14,7 +14,7 @@ void TvBBrick::Update(const orxCLOCK_INFO &_rstInfo)
   if(s32HP <= 0)
   {
     // Adds sound
-    AddSound("BrickDestroyed");
+    TvB::GetInstance().GetNextObject<TvBBall>()->AddSound("BrickDestroyed");
 
     // Deletes it
     orxObject_SetLifeTime(GetOrxObject(), orxFLOAT_0);

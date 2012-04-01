@@ -3,7 +3,7 @@
 
 
 //! Constants
-
+static TvBBrick *sapoGrid[10][20];
 
 //! Code
 orxSTATUS TvB::InitT()
