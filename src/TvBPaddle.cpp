@@ -21,7 +21,9 @@ void TvBPaddle::Update(const orxCLOCK_INFO &_rstInfo)
   vPos.fX = orxCLAMP(vPos.fX, orxConfig_GetListFloat("Limit", 0), orxConfig_GetListFloat("Limit", 1));
 
   SetPosition(vPos);
-  orxMouse_SetPosition(&vPos);
+
+  orxDisplay_GetScreenSize(&vPos.fX, &vPos.fY);
+  orxMouse_SetPosition(orxVector_Divf(&vPos, &vPos, orx2F(2.0f)));
 }
 
 void TvBPaddle::OnDelete()
@@ -30,4 +32,6 @@ void TvBPaddle::OnDelete()
 
 orxBOOL TvBPaddle::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
 {
+  // Done!
+  return orxTRUE;
 }

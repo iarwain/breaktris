@@ -25,4 +25,7 @@ orxBOOL TvBBrick::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartNam
 {
   // Updates HP
   s32HP--;
+
+  // Done!
+  return orxTRUE;
 }

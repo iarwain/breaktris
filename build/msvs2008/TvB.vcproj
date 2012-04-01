@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Entzun"
+	Name="TvB"
 	ProjectGUID="{75FCB0C5-F571-4296-BEF3-B1933AB8468D}"
-	RootNamespace="Entzun"
+	RootNamespace="TvB"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -61,7 +61,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="orxd.lib"
-				OutputFile="..\..\bin\windows\entzund.exe"
+				OutputFile="..\..\bin\windows\tvbd.exe"
 				AdditionalLibraryDirectories="..\..\lib\windows"
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
@@ -139,7 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="orx.lib"
-				OutputFile="..\..\bin\windows\entzun.exe"
+				OutputFile="..\..\bin\windows\tvb.exe"
 				AdditionalLibraryDirectories="..\..\lib\windows"
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
@@ -220,7 +220,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="orxp.lib"
-				OutputFile="..\..\bin\windows\entzunp.exe"
+				OutputFile="..\..\bin\windows\tvbp.exe"
 				AdditionalLibraryDirectories="..\..\lib\windows"
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
@@ -262,23 +262,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\src\Entzun.cpp"
+				RelativePath="..\..\src\B.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\EntCursor.cpp"
+				RelativePath="..\..\src\T.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\EntObject.cpp"
+				RelativePath="..\..\src\TvB.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\EntOctaveSurface.cpp"
+				RelativePath="..\..\src\TvBBall.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\EntSoundSurface.cpp"
+				RelativePath="..\..\src\TvBBrick.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\TvBPaddle.cpp"
 				>
 			</File>
 		</Filter>
@@ -286,23 +290,11 @@
 			Name="Header Files"
 			>
 			<File
-				RelativePath="..\..\include\Entzun.h"
+				RelativePath="..\..\include\TvB.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\EntCursor.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\EntObject.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\EntOctaveSurface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\EntSoundSurface.h"
+				RelativePath="..\..\include\TvBObject.h"
 				>
 			</File>
 			<Filter

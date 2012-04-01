@@ -50,7 +50,13 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
 orxSTATUS TvB::InitB()
 {
   orxVECTOR vPos;
+  orxCAMERA *pstCamera;
   orxSTATUS eResult = orxSTATUS_SUCCESS;
+
+  // Creates viewport
+  orxViewport_CreateFromConfig("BViewport");
+
+  pstCamera = orxCamera_Get("BCamera");
 
   orxConfig_PushSection("B");
 
@@ -72,6 +78,7 @@ orxSTATUS TvB::InitB()
 
       if(poBrick)
       {
+        orxObject_SetParent(poBrick->GetOrxObject(), pstCamera);
         poBrick->SetPosition(vPos);
       }
       vPos.fX += vBrickSize.fX;
@@ -82,9 +89,6 @@ orxSTATUS TvB::InitB()
   
   orxConfig_PopSection();
   
-  // Creates viewport
-  orxViewport_CreateFromConfig("BViewport");
-
   // Creates scene
   CreateObject("BScene");
 
