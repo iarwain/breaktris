@@ -25,7 +25,6 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
       poBall = TvB::GetInstance().GetNextObject<TvBBall>();
 
       // Respawns
-      pstPayload->stWarp.vSpeed.fY *= -orxFLOAT_1;
       poBall->Respawn(&pstPayload->stWarp.vPos, &pstPayload->stWarp.vSpeed);
     }
       

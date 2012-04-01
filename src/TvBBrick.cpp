@@ -13,6 +13,10 @@ void TvBBrick::Update(const orxCLOCK_INFO &_rstInfo)
   // Dead?
   if(s32HP <= 0)
   {
+    // Adds sound
+    AddSound("BrickDestroyed");
+
+    // Deletes it
     orxObject_SetLifeTime(GetOrxObject(), orxFLOAT_0);
   }
 }

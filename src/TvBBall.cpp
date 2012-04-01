@@ -71,6 +71,9 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
   {
     orxVECTOR vOffset, vPos1, vPos2;
     
+    // Adds sound
+    poPaddle->AddSound("PaddleHit");
+    
     // Gets offset
     orxVector_Sub(&vOffset, &GetPosition(vPos1, orxTRUE), &poPaddle->GetPosition(vPos2, orxTRUE));
 
@@ -79,6 +82,12 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
     vSpeed.fX += orxConfig_GetFloat("ReactionScale") * vOffset.fX;
     PopConfigSection();
   }
+  else
+  {
+    // Adds sound
+    AddSound("BallHit");
+  }
+
   
   return orxTRUE;
 }
@@ -96,10 +105,16 @@ void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
 
 void TvBBall::Warp()
 {
+  TvB::EventPayload stPayload;
   orxEVENT stEvent;
 
+  orxMemory_Zero(&stPayload, sizeof(TvB::EventPayload));
+  GetPosition(stPayload.stWarp.vPos);
+  orxVector_Copy(&stPayload.stWarp.vSpeed, &vSpeed);
+  stPayload.stWarp.vSpeed.fY *= -orxFLOAT_1;
+
   // Sends warp out event
-  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, TvB::EventIDWarpOut, this, orxNULL, orxNULL);
+  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, TvB::EventIDWarpOut, this, orxNULL, &stPayload);
   orxEvent_Send(&stEvent);
 
   // Disables ball
