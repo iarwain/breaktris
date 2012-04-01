@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E01B9A161528E30D00D79A47 /* TvBTetromino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E01B9A151528E30D00D79A47 /* TvBTetromino.cpp */; };
 		E09C9BF11526C96300226C7B /* TvB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E09C9BEF1526C96300226C7B /* TvB.cpp */; };
 		E09C9BF21526C96300226C7B /* TvBPaddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E09C9BF01526C96300226C7B /* TvBPaddle.cpp */; };
 		E0C80AFB1527B8DC0020F5E3 /* TvBBall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0C80AF91527B8DC0020F5E3 /* TvBBall.cpp */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E01B9A151528E30D00D79A47 /* TvBTetromino.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = TvBTetromino.cpp; path = ../../src/TvBTetromino.cpp; sourceTree = SOURCE_ROOT; };
 		E01C6537139B673300423E63 /* orxAnim.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = orxAnim.h; sourceTree = "<group>"; };
 		E01C6538139B673300423E63 /* orxAnimPointer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = orxAnimPointer.h; sourceTree = "<group>"; };
 		E01C6539139B673300423E63 /* orxAnimSet.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = orxAnimSet.h; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E01B9A151528E30D00D79A47 /* TvBTetromino.cpp */,
 				E0C80AF91527B8DC0020F5E3 /* TvBBall.cpp */,
 				E0C80AFA1527B8DC0020F5E3 /* TvBBrick.cpp */,
 				E0F2DEA915278CA300FBF097 /* B.cpp */,
@@ -436,6 +439,7 @@
 				E09C9BF21526C96300226C7B /* TvBPaddle.cpp in Sources */,
 				E0C80AFB1527B8DC0020F5E3 /* TvBBall.cpp in Sources */,
 				E0C80AFC1527B8DC0020F5E3 /* TvBBrick.cpp in Sources */,
+				E01B9A161528E30D00D79A47 /* TvBTetromino.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

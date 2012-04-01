@@ -109,6 +109,9 @@ private:
   
                 orxVECTOR       vBrickSize;
                 orxVECTOR       vPlayTL, vPlayBR;
+
+                TvBBrick       *apoGrid[20][10];
+                TvBTetromino   *poSelection;
 };
 
 #endif // __TVB_H_

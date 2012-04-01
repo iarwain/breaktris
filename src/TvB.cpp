@@ -88,6 +88,10 @@ orxSTATUS TvB::Start()
   // Pops config section
   orxConfig_PopSection();
 
+  // Inits games
+  InitT();
+  InitB();
+  
   // Done!
   return eResult;
 }
@@ -192,10 +196,6 @@ orxSTATUS TvB::Init()
   // Inits splash screen
   InitSplash();
 
-  // Inits games
-  InitT();
-  InitB();
-
   // Creates scene
   mpoScene = CreateObject("Scene");
   
@@ -242,13 +242,16 @@ void TvB::BindObjects()
   // Binds objects
   ScrollBindObject<TvBPaddle>("Paddle");
   ScrollBindObject<TvBBall>("Ball");
-
+  
   for(orxS32 i = 0; i < orxConfig_GetListCounter("BrickList"); i++)
   {
     ScrollBindObject<TvBBrick>(orxConfig_GetListString("BrickList", i));
   }
 
-  //! TODO
+  for(orxS32 i = 0; i < orxConfig_GetListCounter("TetrominoList"); i++)
+  {
+    ScrollBindObject<TvBTetromino>(orxConfig_GetListString("TetrominoList", i));
+  }
 
   // Pops section
   orxConfig_PopSection();

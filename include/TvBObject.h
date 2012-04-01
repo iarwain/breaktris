@@ -46,4 +46,13 @@ class TvBBrick : public ScrollObject
   orxS32                  s32HP;
 };
 
+class TvBTetromino : public ScrollObject
+{
+  void                    OnCreate();
+  void                    OnDelete();
+  void                    Update(const orxCLOCK_INFO &_rstInfo);
+
+  void                    Land();
+};
+
 #endif // __TVB_OBJECT_H__
