@@ -19,6 +19,11 @@ void TvBBrick::Update(const orxCLOCK_INFO &_rstInfo)
     // Deletes it
     orxObject_SetLifeTime(GetOrxObject(), orxFLOAT_0);
   }
+  else
+  {
+    GetPosition(vPos, orxTRUE);
+  }
+
 }
 
 void TvBBrick::OnDelete()
@@ -30,7 +35,7 @@ void TvBBrick::OnDelete()
     orxS32    s32X, s32Y;
 
     // On grid?
-    if(TvB::GetInstance().GetGridPosition(GetPosition(vPos, orxTRUE), s32X, s32Y) != orxSTATUS_FAILURE)
+    if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
     {
       // Clears it
       TvB::GetInstance().SetGridValue(s32X, s32Y, 0);
