@@ -57,11 +57,11 @@ class TvBTetromino : public ScrollObject
   void                    Validate();
   void                    Transform(const orxVECTOR &_rvPos, orxS32 _s32Rotation);
 
-  orxS32                  s32Rotation;
-  
 public:
   void                    Land();
   orxBOOL                 Move(const orxVECTOR &_rvPos, orxS32 _s32Rotation);
+
+  orxS32                  s32Rotation;
 };
 
 #endif // __TVB_OBJECT_H__
