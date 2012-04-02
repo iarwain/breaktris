@@ -100,6 +100,18 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   // Pushes config section
   orxConfig_PushSection("T");
 
+  // Has selection?
+  if(poSelection != orxNULL)
+  {
+    // No child?
+    if(orxObject_GetChild(poSelection->GetOrxObject()) == orxNULL)
+    {
+      // Clears it
+      orxObject_SetLifeTime(poSelection->GetOrxObject(), orxFLOAT_0);
+      poSelection = orxNULL;
+    }
+  }
+  
   // No selection?
   if(poSelection == orxNULL)
   {
@@ -208,6 +220,12 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   TvB::GetInstance().GetGridSize(s32Width, s32Height);
   
   orxS32 s32CleanedLines = 0;
+  orxVECTOR vOffset;
+
+  orxConfig_PushSection("T");
+  orxConfig_GetVector("TetroBrickSize", &vOffset);
+  orxConfig_PopSection();
+  
   for(orxS32 i = s32Height - 1; i >= 0; i--)
   {
     orxBOOL bClean = orxTRUE;
@@ -225,7 +243,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
     {
       s32CleanedLines++;
       TvB::GetInstance().CleanGridLine(i);
-      
+     
       for(TvBBrick *poBrick = TvB::GetInstance().GetNextObject<TvBBrick>();
           poBrick;
           poBrick = TvB::GetInstance().GetNextObject<TvBBrick>(poBrick))
@@ -243,7 +261,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
           }
           else
           {
-            vPos.fY += vBrickSize.fY;
+            vPos.fY += vOffset.fY;
             poBrick->SetPosition(vPos, orxTRUE);
           }
         }

@@ -161,7 +161,6 @@ void TvB::AddBLine(LineType _eType)
 
     pstCamera = orxCamera_Get("BCamera");
 
-    orxConfig_GetVector("BrickSize", &vBrickSize);
     orxVector_Copy(&vPos, &vPlayTL);
       
     for(orxS32 j = 0; j < orxConfig_GetListCounter(zLine); j++)

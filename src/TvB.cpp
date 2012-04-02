@@ -249,6 +249,9 @@ orxSTATUS TvB::Init()
 {
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
+  orxSOUND *p = orxSound_CreateFromConfig("Kiss");
+  orxSound_Delete(p);
+  
   // Inits random seed
   orxMath_InitRandom(orxSystem_GetRealTime());
   
