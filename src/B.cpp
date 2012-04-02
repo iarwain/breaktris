@@ -33,14 +33,6 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
       break;
     }
       
-    case TvB::EventIDAddLine:
-    {
-      // Add a line
-      TvB::GetInstance().AddBLine(((TvB::EventPayload *)_pstEvent->pstPayload)->stAddLine.eType);
-
-      break;
-    }
-      
     default:
     {
       break;
@@ -125,11 +117,11 @@ void TvB::AddBLine(LineType _eType)
       poBrick = GetNextObject<TvBBrick>(poBrick))
   {
     orxVECTOR vPos;
-    orxS32    s32X, s32Y;
 
-    // Out of grid?
-    poBrick->GetPosition(vPos, orxTRUE);
-    if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) == orxFALSE)
+    // B brick?
+    poBrick->PushConfigSection();
+    
+    if(orxConfig_GetBool("IsBBrick"))
     {
       // Gets its position
       poBrick->GetPosition(vPos);
@@ -149,6 +141,8 @@ void TvB::AddBLine(LineType _eType)
         break;
       }
     }
+    
+    poBrick->PopConfigSection();
   }
    
   if(meGameState != GameStateEnd)
