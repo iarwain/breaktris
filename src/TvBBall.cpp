@@ -126,14 +126,16 @@ void TvBBall::Warp()
 {
   TvB::EventPayload stPayload;
   orxEVENT stEvent;
+  TvB::EventID eEventID;
 
   orxMemory_Zero(&stPayload, sizeof(TvB::EventPayload));
   GetPosition(stPayload.stWarp.vPos);
   vSpeed.fY *= -orxFLOAT_1;
   orxVector_Copy(&stPayload.stWarp.vSpeed, &vSpeed);
+  eEventID = (bIn != orxFALSE) ? TvB::EventIDWarpOut : TvB::EventIDWarpIn;
 
   // Sends warp out event
-  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, (bIn != orxFALSE) ? TvB::EventIDWarpOut : TvB::EventIDWarpIn, this, orxNULL, &stPayload);
+  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, eEventID, this, orxNULL, &stPayload);
   orxEvent_Send(&stEvent);
 
   bIn = !bIn;

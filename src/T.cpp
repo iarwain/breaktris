@@ -28,6 +28,8 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
 
       // Respawns
       poBall->Respawn(&pstPayload->stWarp.vPos, &pstPayload->stWarp.vSpeed);
+      
+      break;
     }
 
     case TvB::EventIDAddLine:

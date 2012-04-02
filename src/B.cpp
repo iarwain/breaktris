@@ -29,6 +29,8 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
       
       // Respawns
       poBall->Respawn(&pstPayload->stWarp.vPos, &pstPayload->stWarp.vSpeed);
+      
+      break;
     }
       
     case TvB::EventIDAddLine:
@@ -143,9 +145,37 @@ void TvB::AddBLine(LineType _eType)
       {
         //! TODO: Game over
         meGameState = GameStateEnd;
+        
+        break;
       }
     }
+  }
+   
+  if(meGameState != GameStateEnd)
+  {
+    orxVECTOR vPos, vBrickSize;
+    orxCAMERA *pstCamera;
 
-    //! TODO: Add new line(s)
+    orxConfig_PushSection("B");
+    const orxSTRING zLine = orxConfig_GetListString("StartBricks", 0);
+
+    pstCamera = orxCamera_Get("BCamera");
+
+    orxConfig_GetVector("BrickSize", &vBrickSize);
+    orxVector_Copy(&vPos, &vPlayTL);
+      
+    for(orxS32 j = 0; j < orxConfig_GetListCounter(zLine); j++)
+    {
+      TvBBrick *poBrick = CreateObject<TvBBrick>(orxConfig_GetListString(zLine, _eType));
+
+      if(poBrick)
+      {
+        orxObject_SetParent(poBrick->GetOrxObject(), pstCamera);
+        poBrick->SetPosition(vPos);
+      }
+      vPos.fX += vBrickSize.fX;
+    }
+  
+    orxConfig_PopSection();
   }
 }
