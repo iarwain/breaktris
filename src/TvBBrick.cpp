@@ -37,16 +37,22 @@ orxBOOL TvBBrick::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartNam
   
   // Dead?
   if(s32HP <= 0)
-  {
-    orxVECTOR vPos;
-    orxS32    s32X, s32Y;
-    
+  {    
     // On grid?
-    if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
+    PushConfigSection();
+    if(orxConfig_GetBool("IsBBrick") == orxFALSE)
     {
-      // Clears it
-      TvB::GetInstance().SetGridValue(s32X, s32Y, 0);
+      orxVECTOR vPos;
+      orxS32    s32X, s32Y;
+    
+      GetPosition(vPos, orxTRUE);
+      if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
+      {
+        // Clears it
+        TvB::GetInstance().SetGridValue(s32X, s32Y, 0);
+      }
     }
+    PopConfigSection();
   }
 
   // Done!
