@@ -32,14 +32,6 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
       break;
     }
 
-    case TvB::EventIDAddLine:
-    {
-      // Add a line
-      TvB::GetInstance().AddBLine(((TvB::EventPayload *)_pstEvent->pstPayload)->stAddLine.eType);
-      
-      break;
-    }
-      
     default:
     {
       break;
@@ -280,7 +272,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
     orxEVENT stEvent;
     
     orxMemory_Zero(&stPayload, sizeof(TvB::EventPayload));
-    stPayload.stAddLine.eType = (TvB::LineType)s32CleanedLines;
+    stPayload.stAddLine.eType = (TvB::LineType)(s32CleanedLines - 1);
     
     // Sends add line event
     orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, TvB::EventIDAddLine, orxNULL, orxNULL, &stPayload);

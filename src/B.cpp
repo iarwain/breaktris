@@ -33,6 +33,14 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
       break;
     }
       
+    case TvB::EventIDAddLine:
+    {
+      // Add a line
+      TvB::GetInstance().AddBLine(((TvB::EventPayload *)_pstEvent->pstPayload)->stAddLine.eType);
+
+      break;
+    }
+      
     default:
     {
       break;

@@ -93,6 +93,10 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
     // Updates speed
     PushConfigSection();
     vSpeed.fX += orxConfig_GetFloat("ReactionScale") * vOffset.fX;
+    
+    orxVector_FromCartesianToSpherical(&vSpeed, &vSpeed);
+    vSpeed.fRho += orxConfig_GetFloat("SpeedUp");
+    orxVector_FromSphericalToCartesian(&vSpeed, &vSpeed);
     PopConfigSection();
   }
   else
