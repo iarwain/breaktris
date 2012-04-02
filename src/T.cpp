@@ -98,20 +98,38 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   // Rotate CW?
   if(orxInput_IsActive("RotateCW") && orxInput_HasNewStatus("RotateCW"))
   {
+    orxS32 s32Rotation;
+    
+    // Gets current rotation
+    s32Rotation = poSelection->s32Rotation;
+    
     // Moves it
     poSelection->Move(orxVECTOR_0, 1);
     
-    // Adds sound
-    poSelection->AddSound("RotateRight");
+    // Changed?
+    if(poSelection->s32Rotation != s32Rotation)
+    {
+      // Adds sound
+      poSelection->AddSound("RotateRight");
+    }
   }
   // Rotate CCW?
   else if(orxInput_IsActive("RotateCCW") && orxInput_HasNewStatus("RotateCCW"))
   {
-    // Moves it
-    poSelection->Move(orxVECTOR_0, 1);
+    orxS32 s32Rotation;
     
-    // Adds sound
-    poSelection->AddSound("RotateLeft");
+    // Gets current rotation
+    s32Rotation = poSelection->s32Rotation;
+    
+    // Moves it
+    poSelection->Move(orxVECTOR_0, -1);
+    
+    // Changed?
+    if(poSelection->s32Rotation != s32Rotation)
+    {
+      // Adds sound
+      poSelection->AddSound("RotateLeft");
+    }
   }
   
   // Should fall?

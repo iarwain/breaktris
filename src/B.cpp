@@ -106,7 +106,7 @@ void TvB::ExitB()
 
 void TvB::UpdateB(const orxCLOCK_INFO &_rstInfo)
 {
-  if(orxInput_IsActive("Action") && orxInput_HasNewStatus("Action"))
+  if(orxInput_IsActive("NewLine") && orxInput_HasNewStatus("NewLine"))
   {
     AddBLine(LineTypeDefault);
   }
@@ -120,23 +120,29 @@ void TvB::AddBLine(LineType _eType)
       poBrick = GetNextObject<TvBBrick>(poBrick))
   {
     orxVECTOR vPos;
+    orxS32    s32X, s32Y;
 
-    // Gets its position
-    poBrick->GetPosition(vPos);
-
-    // Updates it
-    vPos.fY += vBrickSize.fY;
-
-    // Updates brick
-    poBrick->SetPosition(vPos);
-    
-    // Game over?
-    if(vPos.fY > vPlayBR.fY)
+    // Out of grid?
+    poBrick->GetPosition(vPos, orxTRUE);
+    if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) == orxFALSE)
     {
-      //! TODO: Game over
-      meGameState = GameStateEnd;
-    }
-  }
+      // Gets its position
+      poBrick->GetPosition(vPos);
 
-  //! TODO: Add new line(s)
+      // Updates it
+      vPos.fY += vBrickSize.fY;
+
+      // Updates brick
+      poBrick->SetPosition(vPos);
+    
+      // Game over?
+      if(vPos.fY > vPlayBR.fY)
+      {
+        //! TODO: Game over
+        meGameState = GameStateEnd;
+      }
+    }
+
+    //! TODO: Add new line(s)
+  }
 }

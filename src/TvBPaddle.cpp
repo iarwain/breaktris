@@ -9,21 +9,25 @@ void TvBPaddle::OnCreate()
 
 void TvBPaddle::Update(const orxCLOCK_INFO &_rstInfo)
 {
-  orxVECTOR vMove, vPos;
+  // In game?
+  if(TvB::GetInstance().GetGameState() == TvB::GameStateRun)
+  {
+    orxVECTOR vMove, vPos;
 
-  vMove.fX = orxInput_GetValue("PaddleMove");
-  vMove.fY = orxFLOAT_0;
-  vMove.fZ = orxFLOAT_0;
+    vMove.fX = orxInput_GetValue("PaddleMove");
+    vMove.fY = orxFLOAT_0;
+    vMove.fZ = orxFLOAT_0;
 
-  GetPosition(vPos);
-  orxVector_Add(&vPos, &vPos, &vMove);
+    GetPosition(vPos);
+    orxVector_Add(&vPos, &vPos, &vMove);
 
-  vPos.fX = orxCLAMP(vPos.fX, orxConfig_GetListFloat("Limit", 0), orxConfig_GetListFloat("Limit", 1));
+    vPos.fX = orxCLAMP(vPos.fX, orxConfig_GetListFloat("Limit", 0), orxConfig_GetListFloat("Limit", 1));
 
-  SetPosition(vPos);
+    SetPosition(vPos);
 
-  orxDisplay_GetScreenSize(&vPos.fX, &vPos.fY);
-  orxMouse_SetPosition(orxVector_Divf(&vPos, &vPos, orx2F(2.0f)));
+    orxDisplay_GetScreenSize(&vPos.fX, &vPos.fY);
+    orxMouse_SetPosition(orxVector_Divf(&vPos, &vPos, orx2F(2.0f)));
+  }
 }
 
 void TvBPaddle::OnDelete()
