@@ -227,6 +227,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
       orxU64 u64GUID;
       
       u64GUID = (poSelection) ? poSelection->GetGUID() : 0;
+      
       // Empty or selection?
       if((TvB::GetInstance().GetGridValue(j, i) == 0) || (TvB::GetInstance().GetGridValue(j, i) == u64GUID))
       {
@@ -234,6 +235,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
         break;
       }
     }
+    
     if(bClean != orxFALSE)
     {
       s32CleanedLines++;
@@ -242,24 +244,28 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
       for(TvBBrick *poBrick = TvB::GetInstance().GetNextObject<TvBBrick>();
           poBrick;
           poBrick = TvB::GetInstance().GetNextObject<TvBBrick>(poBrick))
-      {
-        orxVECTOR vPos;
-        orxS32 s32X, s32Y;
-        
-        poBrick->GetPosition(vPos, orxTRUE);
-        
-        if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
+      {        
+        poBrick->PushConfigSection();
+        if(orxConfig_GetBool("IsBBrick") == orxFALSE)
         {
-          if(s32Y == i)
+          orxVECTOR vPos;
+          orxS32 s32X, s32Y;
+          
+          poBrick->GetPosition(vPos, orxTRUE);
+          if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
           {
-            orxObject_SetLifeTime(poBrick->GetOrxObject(), orxFLOAT_0);
-          }
-          else
-          {
-            vPos.fY += vOffset.fY;
-            poBrick->SetPosition(vPos, orxTRUE);
+            if(s32Y == i)
+            {
+              orxObject_SetLifeTime(poBrick->GetOrxObject(), orxFLOAT_0);
+            }
+            else if(s32Y < i)
+            {
+              vPos.fY += vOffset.fY;
+              poBrick->SetPosition(vPos, orxTRUE);
+            }
           }
         }
+        poBrick->PopConfigSection();
       }
       
       i++;
