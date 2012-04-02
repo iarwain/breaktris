@@ -5,6 +5,49 @@
 //! Constants
 
 //! Code
+static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
+{
+  orxSTATUS eResult = orxSTATUS_SUCCESS;
+  
+  // Depending on ID
+  switch(_pstEvent->eID)
+  {
+    case TvB::EventIDWarpOut:
+    {
+      TvB::EventPayload *pstPayload;
+      TvBBall *poBall;
+
+      // Gets payload
+      pstPayload = (TvB::EventPayload *)_pstEvent->pstPayload;
+      
+      // Gets ball
+      poBall = TvB::GetInstance().GetNextObject<TvBBall>();
+      
+      // Changes its space
+      orxObject_SetParent(poBall->GetOrxObject(), orxCamera_Get("TCamera"));
+
+      // Respawns
+      poBall->Respawn(&pstPayload->stWarp.vPos, &pstPayload->stWarp.vSpeed);
+    }
+
+    case TvB::EventIDAddLine:
+    {
+      // Add a line
+      TvB::GetInstance().AddBLine(((TvB::EventPayload *)_pstEvent->pstPayload)->stAddLine.eType);
+      
+      break;
+    }
+      
+    default:
+    {
+      break;
+    }
+  }
+  
+  // Done!
+  return eResult;
+}
+
 orxSTATUS TvB::InitT()
 {
   orxVECTOR vGridSize;
@@ -29,12 +72,18 @@ orxSTATUS TvB::InitT()
   poSelection = orxNULL;
   fFallTime = GetTime();
 
+  // Adds event handler
+  orxEvent_AddHandler(orxEVENT_TYPE_USER_DEFINED, EventHandler);
+  
   // Done!
   return eResult;
 }
 
 void TvB::ExitT()
 {
+  // Removes event handler
+  orxEvent_RemoveHandler(orxEVENT_TYPE_USER_DEFINED, EventHandler);
+
   if(au64Grid != orxNULL)
   {
     orxMemory_Free(au64Grid);

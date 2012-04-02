@@ -7,6 +7,8 @@ void TvBBall::OnCreate()
 {
   orxObject_GetSpeed(GetOrxObject(), &vSpeed);
   GetPosition(vInitPos);
+  
+  bIn = orxTRUE;
 }
 
 void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
@@ -25,7 +27,7 @@ void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
     // Respawns
     Respawn();
   }
-  else if(vPos.fY < orxConfig_GetFloat("Top"))
+  else if((vPos.fY < orxConfig_GetFloat("Top")) && (vSpeed.fY < orxFLOAT_0))
   {
     // Warps
     Warp();
@@ -33,6 +35,11 @@ void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
   else
   {
     orxObject_SetSpeed(GetOrxObject(), &vSpeed);
+  }
+  
+  if(orxInput_IsActive("Warp") && orxInput_HasNewStatus("Warp"))
+  {
+    Warp();
   }
 }
 
@@ -101,9 +108,15 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
 void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
 {
   // Resets ball
-  Enable(orxFALSE, orxTRUE);
   Enable(orxTRUE, orxFALSE);
 
+  // Back to B game?
+  if(_pvPos == orxNULL)
+  {
+    // Changes its space
+    orxObject_SetParent(GetOrxObject(), orxCamera_Get("BCamera"));
+  }
+  
   // Resets potision & speed
   SetPosition((_pvPos != orxNULL) ? *_pvPos : vInitPos);
   orxObject_SetSpeed(GetOrxObject(), (_pvSpeed != orxNULL) ? _pvSpeed : orxConfig_GetVector("Speed", &vSpeed));
@@ -116,13 +129,15 @@ void TvBBall::Warp()
 
   orxMemory_Zero(&stPayload, sizeof(TvB::EventPayload));
   GetPosition(stPayload.stWarp.vPos);
+  vSpeed.fY *= -orxFLOAT_1;
   orxVector_Copy(&stPayload.stWarp.vSpeed, &vSpeed);
-  stPayload.stWarp.vSpeed.fY *= -orxFLOAT_1;
 
   // Sends warp out event
-  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, TvB::EventIDWarpOut, this, orxNULL, &stPayload);
+  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, (bIn != orxFALSE) ? TvB::EventIDWarpOut : TvB::EventIDWarpIn, this, orxNULL, &stPayload);
   orxEvent_Send(&stEvent);
 
+  bIn = !bIn;
+
   // Disables ball
-  Enable(orxFALSE, orxTRUE);
+//  Enable(orxFALSE, orxTRUE);
 }

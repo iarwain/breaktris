@@ -34,6 +34,7 @@ public:
 private:
   
   orxVECTOR vSpeed, vInitPos;
+  orxBOOL bIn;
 };
 
 class TvBBrick : public ScrollObject

@@ -23,7 +23,10 @@ static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent)
 
       // Gets ball
       poBall = TvB::GetInstance().GetNextObject<TvBBall>();
-
+      
+      // Changes its space
+      orxObject_SetParent(poBall->GetOrxObject(), orxCamera_Get("BCamera"));
+      
       // Respawns
       poBall->Respawn(&pstPayload->stWarp.vPos, &pstPayload->stWarp.vSpeed);
     }
