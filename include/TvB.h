@@ -81,6 +81,8 @@ public:
                 void            SetGridValue(orxS32 _s32X, orxS32 _s32Y, orxU64 _u64Value);
   
                 void            GetGridSize(orxS32 &_rs32Width, orxS32 &_rs32Height) const;
+  
+                void            CleanGridLine(orxS32 _s32Line);
 
   
 private:

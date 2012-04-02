@@ -202,4 +202,69 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
     // Updates fall time
     fFallTime = GetTime();
   }
+
+  orxS32 s32Width, s32Height;
+  
+  TvB::GetInstance().GetGridSize(s32Width, s32Height);
+  
+  orxS32 s32CleanedLines = 0;
+  for(orxS32 i = s32Height - 1; i >= 0; i--)
+  {
+    orxBOOL bClean = orxTRUE;
+    
+    for(orxS32 j = 0; j < s32Width; j++)
+    {
+      // Empty?
+      if(TvB::GetInstance().GetGridValue(j, i) == 0)
+      {
+        bClean = orxFALSE;
+        break;
+      }
+    }
+    if(bClean != orxFALSE)
+    {
+      s32CleanedLines++;
+      TvB::GetInstance().CleanGridLine(i);
+      
+      for(TvBBrick *poBrick = TvB::GetInstance().GetNextObject<TvBBrick>();
+          poBrick;
+          poBrick = TvB::GetInstance().GetNextObject<TvBBrick>(poBrick))
+      {
+        orxVECTOR vPos;
+        orxS32 s32X, s32Y;
+        
+        poBrick->GetPosition(vPos, orxTRUE);
+        
+        if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
+        {
+          if(s32Y == i)
+          {
+            orxObject_SetLifeTime(poBrick->GetOrxObject(), orxFLOAT_0);
+          }
+          else
+          {
+            vPos.fY += vBrickSize.fY;
+            poBrick->SetPosition(vPos, orxTRUE);
+          }
+        }
+      }
+      
+      i++;
+    }
+  }
+  
+  if(s32CleanedLines > 0)
+  {
+    TvB::EventPayload stPayload;
+    orxEVENT stEvent;
+    
+    orxMemory_Zero(&stPayload, sizeof(TvB::EventPayload));
+    stPayload.stAddLine.eType = (TvB::LineType)s32CleanedLines;
+    
+    // Sends add line event
+    orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, TvB::EventIDAddLine, orxNULL, orxNULL, &stPayload);
+    orxEvent_Send(&stEvent);
+    
+    TvB::GetInstance().GetNextObject<TvBPaddle>()->AddSound("LineCleared");
+  }
 }

@@ -115,6 +115,23 @@ void TvB::GetGridSize(orxS32 &_rs32Width, orxS32 &_rs32Height) const
   _rs32Height = s32GridHeight;
 }
 
+void TvB::CleanGridLine(orxS32 _s32Line)
+{
+  for(orxS32 i = _s32Line; i > 0; i--)
+  {
+    for(orxS32 j = 0; j < s32GridWidth; j++)
+    {
+      // Copies line from above
+      SetGridValue(j, i, GetGridValue(j, i - 1));
+    }
+  }
+  for(orxS32 j = 0; j < s32GridWidth; j++)
+  {
+    // Copies line from above
+    SetGridValue(j, 0, 0);
+  }  
+}
+
 void TvB::LoadMenu()
 {
   //! TODO
@@ -221,6 +238,8 @@ void TvB::Update(const orxCLOCK_INFO &_rstInfo)
 
     case GameStateEnd:
     {
+      CreateObject("GameOver");
+      meGameState = GameStateNumber;
       break;
     }
   }

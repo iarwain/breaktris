@@ -28,12 +28,19 @@ void TvBBrick::Update(const orxCLOCK_INFO &_rstInfo)
 
 void TvBBrick::OnDelete()
 {
-  // In game?
-  if(TvB::GetInstance().GetGameState() == TvB::GameStateRun)
+}
+
+orxBOOL TvBBrick::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
+{
+  // Updates HP
+  s32HP--;
+  
+  // Dead?
+  if(s32HP <= 0)
   {
     orxVECTOR vPos;
     orxS32    s32X, s32Y;
-
+    
     // On grid?
     if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
     {
@@ -41,12 +48,6 @@ void TvBBrick::OnDelete()
       TvB::GetInstance().SetGridValue(s32X, s32Y, 0);
     }
   }
-}
-
-orxBOOL TvBBrick::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal)
-{
-  // Updates HP
-  s32HP--;
 
   // Done!
   return orxTRUE;
