@@ -232,8 +232,11 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
     
     for(orxS32 j = 0; j < s32Width; j++)
     {
-      // Empty?
-      if(TvB::GetInstance().GetGridValue(j, i) == 0)
+      orxU64 u64GUID;
+      
+      u64GUID = (poSelection) ? poSelection->GetGUID() : 0;
+      // Empty or selection?
+      if((TvB::GetInstance().GetGridValue(j, i) == 0) || (TvB::GetInstance().GetGridValue(j, i) == u64GUID))
       {
         bClean = orxFALSE;
         break;

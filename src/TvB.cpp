@@ -86,8 +86,8 @@ orxSTATUS TvB::GetGridPosition(const orxVECTOR &_rvPos, orxS32 &_rs32X, orxS32 &
   orxVector_Div(&vPos, &vPos, &vBrickSize);
 
   // Stores coords
-  _rs32X = vPos.fX;
-  _rs32Y = vPos.fY;
+  _rs32X = orxF2S(orxMath_Floor(vPos.fX));
+  _rs32Y = orxF2S(orxMath_Floor(vPos.fY));
 
   // Updates result
   eResult = ((_rs32X >= 0) && (_rs32X < s32GridWidth) && (_rs32Y >= 0) && (_rs32Y < s32GridHeight)) ? orxSTATUS_SUCCESS : orxSTATUS_FAILURE;
@@ -300,7 +300,7 @@ orxSTATUS TvB::Run()
 
 void TvB::Exit()
 {
-  meGameState = GameStateEnd;
+  meGameState = GameStateNumber;
 
   // Removes event handler
   orxEvent_RemoveHandler(orxEVENT_TYPE_OBJECT, EventHandler);
