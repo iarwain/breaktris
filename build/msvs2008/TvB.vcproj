@@ -285,6 +285,10 @@
 				RelativePath="..\..\src\TvBPaddle.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\TvBTetromino.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
