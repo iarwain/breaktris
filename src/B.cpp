@@ -153,19 +153,18 @@ void TvB::AddBLine(LineType _eType)
    
   if(meGameState != GameStateEnd)
   {
-    orxVECTOR vPos, vBrickSize;
+    orxVECTOR vPos;
     orxCAMERA *pstCamera;
 
     orxConfig_PushSection("B");
-    const orxSTRING zLine = orxConfig_GetListString("StartBricks", 0);
 
     pstCamera = orxCamera_Get("BCamera");
 
     orxVector_Copy(&vPos, &vPlayTL);
       
-    for(orxS32 j = 0; j < orxConfig_GetListCounter(zLine); j++)
+    for(orxS32 j = 0; j < orxConfig_GetS32("LineSize"); j++)
     {
-      TvBBrick *poBrick = CreateObject<TvBBrick>(orxConfig_GetListString(zLine, _eType));
+      TvBBrick *poBrick = CreateObject<TvBBrick>(orxConfig_GetListString("BrickList", _eType));
 
       if(poBrick)
       {
