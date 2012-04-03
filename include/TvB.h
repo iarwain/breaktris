@@ -122,6 +122,7 @@ private:
                 orxS32          s32GridWidth, s32GridHeight;
                 TvBTetromino   *poSelection;
                 orxFLOAT        fFallTime;
+                orxFLOAT        fLeftTime, fRightTime;
 };
 
 #endif // __TVB_H_

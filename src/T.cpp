@@ -65,6 +65,7 @@ orxSTATUS TvB::InitT()
   // Clears vars
   poSelection = orxNULL;
   fFallTime = GetTime();
+  fLeftTime = fRightTime = orxFLOAT_0;
 
   // Adds event handler
   orxEvent_AddHandler(orxEVENT_TYPE_USER_DEFINED, EventHandler);
@@ -124,30 +125,61 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   // Gets fall delay
   fFallDelay = orxConfig_GetListFloat("FallDelayList", orxInput_IsActive("SpeedUp") ? 1 : 0);
   
-  // Pops config section
-  orxConfig_PopSection();
-
   // Left?
-  if(orxInput_IsActive("MoveLeft") && orxInput_HasNewStatus("MoveLeft"))
+  if(orxInput_IsActive("MoveLeft"))
   {
-    orxVECTOR vMove;
-    
-    // Moves selection left
-    orxVector_Set(&vMove, -orxFLOAT_1, orxFLOAT_0, orxFLOAT_0);
-    
-    // Moves it
-    poSelection->Move(vMove, 0);
+    // Updates delay
+    fLeftTime -= _rstInfo.fDT;
+
+    // Can move?
+    if(fLeftTime <= orxFLOAT_0)
+    {
+      orxVECTOR vMove;
+      
+      // Moves selection left
+      orxVector_Set(&vMove, -orxFLOAT_1, orxFLOAT_0, orxFLOAT_0);
+      
+      // Moves it
+      poSelection->Move(vMove, 0);
+
+      // Updates delay
+      fLeftTime = orxConfig_GetListFloat("MoveDelayList", orxInput_HasNewStatus("MoveLeft") ? 0 : 1);
+    }
+
+    // Resets right delay
+    fRightTime = orxFLOAT_0;
   }
-  // Right?
-  else if(orxInput_IsActive("MoveRight") && orxInput_HasNewStatus("MoveRight"))
+  else
   {
-    orxVECTOR vMove;
-    
-    // Moves selection right
-    orxVector_Set(&vMove, orxFLOAT_1, orxFLOAT_0, orxFLOAT_0);
-    
-    // Moves it
-    poSelection->Move(vMove, 0);
+    // Resets left delay
+    fLeftTime = orxFLOAT_0;
+
+    // Right?
+    if(orxInput_IsActive("MoveRight"))
+    {
+      // Updates delay
+      fRightTime -= _rstInfo.fDT;
+
+      // Can move?
+      if(fRightTime <= orxFLOAT_0)
+      {
+        orxVECTOR vMove;
+        
+        // Moves selection right
+        orxVector_Set(&vMove, orxFLOAT_1, orxFLOAT_0, orxFLOAT_0);
+        
+        // Moves it
+        poSelection->Move(vMove, 0);
+
+        // Updates delay
+        fRightTime = orxConfig_GetListFloat("MoveDelayList", orxInput_HasNewStatus("MoveRight") ? 0 : 1);
+      }
+    }
+    else
+    {
+      // Resets right delay
+      fRightTime = orxFLOAT_0;
+    }
   }
 
   // Rotate CW?
@@ -214,9 +246,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   orxS32 s32CleanedLines = 0;
   orxVECTOR vOffset;
 
-  orxConfig_PushSection("T");
   orxConfig_GetVector("TetroBrickSize", &vOffset);
-  orxConfig_PopSection();
   
   for(orxS32 i = s32Height - 1; i >= 0; i--)
   {
@@ -286,4 +316,6 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
     
     TvB::GetInstance().GetNextObject<TvBPaddle>()->AddSound("LineCleared");
   }
+
+  orxConfig_PopSection();
 }
