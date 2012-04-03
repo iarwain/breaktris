@@ -203,6 +203,11 @@ void TvB::UpdateGame(const orxCLOCK_INFO &_rstInfo)
 
 void TvB::Update(const orxCLOCK_INFO &_rstInfo)
 {
+  if(orxInput_IsActive("Screenshot") && orxInput_HasNewStatus("Screenshot"))
+  {
+    orxScreenshot_Capture();
+  }
+
   // Depending on game state
   switch(meGameState)
   {

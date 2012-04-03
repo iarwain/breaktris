@@ -45,7 +45,6 @@ class TvBBrick : public ScrollObject
   orxBOOL                 OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName, const orxVECTOR &_rvPosition, const orxVECTOR &_rvNormal);
   
   orxS32                  s32HP;
-  orxVECTOR               vPos;
 };
 
 class TvBTetromino : public ScrollObject

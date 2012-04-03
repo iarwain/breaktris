@@ -19,11 +19,6 @@ void TvBBrick::Update(const orxCLOCK_INFO &_rstInfo)
     // Deletes it
     orxObject_SetLifeTime(GetOrxObject(), orxFLOAT_0);
   }
-  else
-  {
-    GetPosition(vPos, orxTRUE);
-  }
-
 }
 
 void TvBBrick::OnDelete()

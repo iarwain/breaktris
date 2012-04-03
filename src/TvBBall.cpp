@@ -112,7 +112,7 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
 void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
 {
   // Resets ball
-  Enable(orxTRUE, orxFALSE);
+  Enable(orxTRUE);
 
   // Back to B game?
   if(_pvPos == orxNULL)
@@ -120,7 +120,7 @@ void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
     // Changes its space
     orxObject_SetParent(GetOrxObject(), orxCamera_Get("BCamera"));
   }
-  
+
   // Resets potision & speed
   SetPosition((_pvPos != orxNULL) ? *_pvPos : vInitPos);
   orxObject_SetSpeed(GetOrxObject(), (_pvSpeed != orxNULL) ? _pvSpeed : orxConfig_GetVector("Speed", &vSpeed));
@@ -138,12 +138,12 @@ void TvBBall::Warp()
   orxVector_Copy(&stPayload.stWarp.vSpeed, &vSpeed);
   eEventID = (bIn != orxFALSE) ? TvB::EventIDWarpOut : TvB::EventIDWarpIn;
 
-  // Sends warp out event
-  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, eEventID, this, orxNULL, &stPayload);
-  orxEvent_Send(&stEvent);
-
   bIn = !bIn;
 
   // Disables ball
-//  Enable(orxFALSE, orxTRUE);
+  Enable(orxFALSE);
+
+  // Sends warp out event
+  orxEVENT_INIT(stEvent, orxEVENT_TYPE_USER_DEFINED, eEventID, this, orxNULL, &stPayload);
+  orxEvent_Send(&stEvent);
 }
