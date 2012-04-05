@@ -1777,10 +1777,10 @@ inline void ScrollObjectBinderBase::DeleteTable()
       h = orxHashTable_FindNext(spstTable, h, orxNULL, (void **)&poBinder))
   {
     // Not already deleted?
-    if(!orxHashTable_Get(pstDeleteTable, (orxU32)(orxU64)poBinder))
+    if(!orxHashTable_Get(pstDeleteTable, (orxU32)poBinder))
     {
       // Adds it to delete table
-      orxHashTable_Add(pstDeleteTable, (orxU32)(orxU64)poBinder, (void *)poBinder);
+      orxHashTable_Add(pstDeleteTable, (orxU32)poBinder, (void *)poBinder);
 
       // Deletes it
       delete poBinder;
