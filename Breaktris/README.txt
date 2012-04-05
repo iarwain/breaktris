@@ -8,9 +8,7 @@ A game made for the 48-hour game jam Molyjam 2012 based on this tweet:
 Play instructions:
 
 1. Unzip somewhere.
-2. Run tvb.exe in the bin/windows directory or tvb in the bin/mac one.
-
-Linux version is coming soon!
+2. Run tvb.exe in the bin/windows directory or tvb in the bin/mac, bin/linux* ones.
 
 Goal:
 

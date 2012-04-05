@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Workspace Name="tvb" Database="./tvb.tags">
+  <Project Name="tvb" Path="tvb/tvb.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Linux64 Debug" Selected="yes">
+      <Project Name="tvb" ConfigName="Linux64 Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Linux64 Release" Selected="no">
+      <Project Name="tvb" ConfigName="Linux64 Release"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Linux32 Debug" Selected="no">
+      <Project Name="tvb" ConfigName="Linux32 Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Linux32 Release" Selected="no">
+      <Project Name="tvb" ConfigName="Linux32 Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
