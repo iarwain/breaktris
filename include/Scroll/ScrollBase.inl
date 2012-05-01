@@ -6,6 +6,13 @@
   #pragma GCC system_header
 #endif // __orxGCC__
 
+// 64bit Helpers
+#ifdef __orxX86_64__
+  #define SCROLL_CAST_HELPER   (orxU64)
+#else /* __orxX86_64__ */
+  #define SCROLL_CAST_HELPER
+#endif /* __orxX86_64__ */
+
 
 //! Constants
 const orxSTRING ScrollBase::szInputSetGame                    = "ScrollInput";
@@ -1777,10 +1784,10 @@ inline void ScrollObjectBinderBase::DeleteTable()
       h = orxHashTable_FindNext(spstTable, h, orxNULL, (void **)&poBinder))
   {
     // Not already deleted?
-    if(!orxHashTable_Get(pstDeleteTable, (orxU32)poBinder))
+    if(!orxHashTable_Get(pstDeleteTable, (orxU32) SCROLL_CAST_HELPER poBinder))
     {
       // Adds it to delete table
-      orxHashTable_Add(pstDeleteTable, (orxU32)poBinder, (void *)poBinder);
+      orxHashTable_Add(pstDeleteTable, (orxU32) SCROLL_CAST_HELPER poBinder, (void *)poBinder);
 
       // Deletes it
       delete poBinder;

@@ -2918,7 +2918,11 @@ void ScrollEd::DisplayObjectRotation(const ScrollObject *_poObject)
 
     // Gets object's rotation
     fRotation = orxObject_GetRotation(_poObject->GetOrxObject());
-    orxCIRCULAR_CLAMP_INC_MAX(fRotation, -orxMATH_KF_PI, orxMATH_KF_PI);
+
+    // Clamps it in ]-Pi, Pi]
+    fRotation = (fRotation + orxMATH_KF_PI) * (orxFLOAT_1 / orxMATH_KF_2_PI);
+    fRotation = fRotation - orxMath_Floor(fRotation);
+    fRotation = (fRotation * orxMATH_KF_2_PI) - orxMATH_KF_PI;
 
     // Creates text
     orxString_NPrint(acBuffer, ss32BufferSize, orxConfig_GetString(szConfigRotationTextFormat), orxMATH_KF_RAD_TO_DEG * fRotation);
