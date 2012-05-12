@@ -1779,9 +1779,9 @@ inline void ScrollObjectBinderBase::DeleteTable()
   pstDeleteTable = orxHashTable_Create(su32TableSize, orxHASHTABLE_KU32_FLAG_NONE, orxMEMORY_TYPE_MAIN);
 
   // For all registered binders
-  for(orxHANDLE h = orxHashTable_FindFirst(spstTable, orxNULL, (void **)&poBinder);
+  for(orxHANDLE h = orxHashTable_GetNext(spstTable, orxNULL, orxNULL, (void **)&poBinder);
       h != orxHANDLE_UNDEFINED;
-      h = orxHashTable_FindNext(spstTable, h, orxNULL, (void **)&poBinder))
+      h = orxHashTable_GetNext(spstTable, h, orxNULL, (void **)&poBinder))
   {
     // Not already deleted?
     if(!orxHashTable_Get(pstDeleteTable, (orxU32) SCROLL_CAST_HELPER poBinder))

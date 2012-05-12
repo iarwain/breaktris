@@ -85,44 +85,6 @@
  */
 #define orxCLAMP(V, MIN, MAX)     orxMAX(orxMIN(V, MAX), MIN)
 
-/** Gets circularly clamped (for ring spaces) value between two boundaries [MIN, MAX[
- * @param[in]   V                               Value to clamp
- * @param[in]   MIN                             Minimum boundary
- * @param[in]   MAX                             Maximum boundary
- * @return      Circularly clamped value between MIN & MAX
- */
-#define orxCIRCULAR_CLAMP_INC_MIN(V, MIN, MAX)  \
-do                                              \
-{                                               \
-  while((V) < (MIN))                            \
-  {                                             \
-    (V) += ((MAX) - (MIN));                     \
-  }                                             \
-  while((V) >= (MAX))                           \
-  {                                             \
-    (V) -= ((MAX) - (MIN));                     \
-  }                                             \
-} while(orxFALSE)
-
-/** Gets circularly clamped (for ring spaces) value between two boundaries ]MIN, MAX]
- * @param[in]   V                               Value to clamp
- * @param[in]   MIN                             Minimum boundary
- * @param[in]   MAX                             Maximum boundary
- * @return      Circularly clamped value between MIN & MAX
- */
-#define orxCIRCULAR_CLAMP_INC_MAX(V, MIN, MAX)  \
-do                                              \
-{                                               \
-  while((V) <= (MIN))                           \
-  {                                             \
-    (V) += ((MAX) - (MIN));                     \
-  }                                             \
-  while((V) > (MAX))                            \
-  {                                             \
-    (V) -= ((MAX) - (MIN));                     \
-  }                                             \
-} while(orxFALSE)
-
 /** Converts an orxFLOAT to an orxU32
  * @param[in]   V                               Value to convert
  * @return      Converted value
@@ -175,6 +137,20 @@ extern orxDLLAPI orxU32 orxFASTCALL   orxMath_GetRandomU32(orxU32 _u32Min, orxU3
  * @return      Random value
  */
 extern orxDLLAPI orxS32 orxFASTCALL   orxMath_GetRandomS32(orxS32 _s32Min, orxS32 _s32Max);
+
+/** Gets a random orxU64 value
+ * @param[in]   _u64Min                         Minimum boundary (inclusive)
+ * @param[in]   _u64Max                         Maximum boundary (inclusive)
+ * @return      Random value
+ */
+extern orxDLLAPI orxU64 orxFASTCALL   orxMath_GetRandomU64(orxU64 _u64Min, orxU64 _u64Max);
+
+/** Gets a random orxS64 value
+ * @param[in]   _s64Min                         Minimum boundary (inclusive)
+ * @param[in]   _s64Max                         Maximum boundary (inclusive)
+ * @return      Random value
+ */
+extern orxDLLAPI orxS64 orxFASTCALL   orxMath_GetRandomS64(orxS64 _s64Min, orxS64 _s64Max);
 
 
 /*** Inlined functions *** */
