@@ -45,8 +45,14 @@ public:
                 orxFLOAT                GetRotation(orxBOOL _bWorld = orxFALSE) const;
                 void                    SetRotation(orxFLOAT _fRotation, orxBOOL _bWorld = orxFALSE);
 
+                orxVECTOR &             GetSpeed(orxVECTOR &_rvSpeed, orxBOOL _bRelative = orxFALSE) const;
+                void                    SetSpeed(const orxVECTOR &_rvSpeed, orxBOOL _bRelative = orxFALSE);
+
                 orxCOLOR &              GetColor(orxCOLOR &_rstColor) const;
                 void                    SetColor(const orxCOLOR &_rstColor, orxBOOL _bRecursive = orxTRUE);
+
+                void                    GetFlip(orxBOOL &_rbFlipX, orxBOOL &_rbFlipY) const;
+                void                    SetFlip(orxBOOL _bFlipX, orxBOOL _bFlipY, orxBOOL _bRecursive = orxTRUE);
 
                 void                    AddFX(const orxSTRING _zFXName, orxBOOL _bRecursive = orxTRUE);
                 void                    AddFX(const orxSTRING _zFXName, orxFLOAT _fDelay, orxBOOL _bRecursive = orxTRUE);
@@ -57,6 +63,9 @@ public:
 
                 void                    AddSound(const orxSTRING _zSoundName);
                 void                    RemoveSound(const orxSTRING _zSoundName);
+
+                orxFLOAT                GetLifeTime() const; 
+                void                    SetLifeTime(orxFLOAT _fLifeTime);
 
                 void                    PushConfigSection(orxBOOL _bPushInstanceSection = orxFALSE) const;
                 void                    PopConfigSection() const;

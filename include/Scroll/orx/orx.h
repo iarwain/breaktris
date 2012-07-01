@@ -25,7 +25,7 @@
 /**
  * @file orx.h
  * @date 02/09/2005
- * @author
+ * @author iarwain@orx-project.org
  *
  * @todo
  */
@@ -33,7 +33,7 @@
 /**
  * @addtogroup Orx
  *
- * Main orx include
+ * Main orx include, execution convenience helpers, freely modifiable by users
  *
  * @{
  */
@@ -131,12 +131,12 @@ static void orxFASTCALL orx_MainSetup()
  */
 @interface orxAppDelegate : NSObject <UIAccelerometerDelegate>
 {
-  UIWindow *poWindow;
-  orxView  *poView;
+  UIWindow           *poWindow;
+  orxViewController  *poViewController;
 }
 
-@property (nonatomic, retain) UIWindow *poWindow;
-@property (nonatomic, retain) UIView   *poView;
+@property (nonatomic, retain) UIWindow         *poWindow;
+@property (nonatomic, retain) UIViewController *poViewController;
 
 - (void)  MainLoop;
 

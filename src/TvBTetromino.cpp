@@ -74,7 +74,7 @@ void TvBTetromino::Land()
   orxOBJECT *pstChild;
 
   // Removes all children
-  while((pstChild = orxObject_GetChild(GetOrxObject())) != orxNULL)
+  while((pstChild = orxObject_GetOwnedChild(GetOrxObject())) != orxNULL)
   {
     orxObject_SetOwner(pstChild, orxNULL);
   }
@@ -125,9 +125,9 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
 
   orxS32 i = 0;
   // For all children
-  for(orxOBJECT *pstChild = orxObject_GetChild(GetOrxObject());
+  for(orxOBJECT *pstChild = orxObject_GetOwnedChild(GetOrxObject());
       pstChild != orxNULL;
-      pstChild = orxObject_GetSibling(pstChild), i++)
+      pstChild = orxObject_GetOwnedSibling(pstChild), i++)
   {
     orxVECTOR vPos;
     orxS32    s32X, s32Y;
@@ -196,9 +196,9 @@ void TvBTetromino::Validate()
   }
   
   // For all children
-  for(orxOBJECT *pstChild = orxObject_GetChild(GetOrxObject());
+  for(orxOBJECT *pstChild = orxObject_GetOwnedChild(GetOrxObject());
       pstChild != orxNULL;
-      pstChild = orxObject_GetSibling(pstChild))
+      pstChild = orxObject_GetOwnedSibling(pstChild))
   {
     orxVECTOR vPos;
     orxS32    s32X, s32Y;

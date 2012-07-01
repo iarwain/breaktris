@@ -97,7 +97,7 @@ void TvB::UpdateT(const orxCLOCK_INFO &_rstInfo)
   if(poSelection != orxNULL)
   {
     // No child?
-    if(orxObject_GetChild(poSelection->GetOrxObject()) == orxNULL)
+    if(orxObject_GetOwnedChild(poSelection->GetOrxObject()) == orxNULL)
     {
       // Clears it
       orxObject_SetLifeTime(poSelection->GetOrxObject(), orxFLOAT_0);

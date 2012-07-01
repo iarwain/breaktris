@@ -170,20 +170,17 @@ extern orxDLLAPI void orxFASTCALL           orxObject_SetOwner(orxOBJECT *_pstOb
 extern orxDLLAPI orxSTRUCTURE *orxFASTCALL  orxObject_GetOwner(const orxOBJECT *_pstObject);
 /** @} */
 
-
-/** @name Children (childlist)
- * @{ */
-/** Gets object's first child (only if created with a config ChildList)
+/** Gets object's first owned child (only if created with a config ChildList / has an owner set with orxObject_SetOwner)
  * @param[in]   _pstObject    Concerned object
- * @return      First child object / orxNULL
+ * @return      First owned child object / orxNULL
  */
-extern orxDLLAPI orxOBJECT *orxFASTCALL     orxObject_GetChild(const orxOBJECT *_pstObject);
+extern orxDLLAPI orxOBJECT *orxFASTCALL     orxObject_GetOwnedChild(const orxOBJECT *_pstObject);
 
-/** Gets object's next sibling (only if created with a config ChildList)
+/** Gets object's next owned sibling (only if created with a config ChildList / has an owner set with orxObject_SetOwner)
  * @param[in]   _pstObject    Concerned object
  * @return      Next sibling object / orxNULL
  */
-extern orxDLLAPI orxOBJECT *orxFASTCALL     orxObject_GetSibling(const orxOBJECT *_pstObject);
+extern orxDLLAPI orxOBJECT *orxFASTCALL     orxObject_GetOwnedSibling(const orxOBJECT *_pstObject);
 /** @} */
 
 
@@ -265,6 +262,13 @@ extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetPivot(orxOBJECT *_pstOb
  */
 extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetPosition(orxOBJECT *_pstObject, const orxVECTOR *_pvPosition);
 
+/** Sets object world position
+ * @param[in]   _pstObject      Concerned object
+ * @param[in]   _pvPosition     Object world position
+ * @return      orxSTATUS_SUCCESS / orxSTATUS_FAILURE
+ */
+extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetWorldPosition(orxOBJECT *_pstObject, const orxVECTOR *_pvPosition);
+
 /** Sets object rotation
  * @param[in]   _pstObject      Concerned object
  * @param[in]   _fRotation      Object rotation (radians)
@@ -272,12 +276,26 @@ extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetPosition(orxOBJECT *_ps
  */
 extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetRotation(orxOBJECT *_pstObject, orxFLOAT _fRotation);
 
+/** Sets object world rotation
+ * @param[in]   _pstObject      Concerned object
+ * @param[in]   _fRotation      Object world rotation (radians)
+ * @return      orxSTATUS_SUCCESS / orxSTATUS_FAILURE
+ */
+extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetWorldRotation(orxOBJECT *_pstObject, orxFLOAT _fRotation);
+
 /** Sets object scale
  * @param[in]   _pstObject      Concerned object
  * @param[in]   _pvScale        Object scale vector
  * @return      orxSTATUS_SUCCESS / orxSTATUS_FAILURE
  */
 extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetScale(orxOBJECT *_pstObject, const orxVECTOR *_pvScale);
+
+/** Sets object world scale
+ * @param[in]   _pstObject      Concerned object
+ * @param[in]   _pvScale        Object world scale vector
+ * @return      orxSTATUS_SUCCESS / orxSTATUS_FAILURE
+ */
+extern orxDLLAPI orxSTATUS orxFASTCALL      orxObject_SetWorldScale(orxOBJECT *_pstObject, const orxVECTOR *_pvScale);
 
 /** Get object pivot
  * @param[in]   _pstObject      Concerned object
@@ -337,7 +355,7 @@ extern orxDLLAPI orxVECTOR *orxFASTCALL     orxObject_GetWorldScale(const orxOBJ
 
 /** @name Parent
  * @{ */
-/** Sets an object parent
+/** Sets an object parent (in the frame hierarchy)
  * @param[in]   _pstObject      Concerned object
  * @param[in]   _pParent        Parent structure to set (object, spawner, camera or frame) / orxNULL
  * @return      orsSTATUS_SUCCESS / orxSTATUS_FAILURE
