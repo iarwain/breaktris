@@ -72,7 +72,7 @@ orxSTATUS TvB::GetGridPosition(const orxVECTOR &_rvPos, orxS32 &_rs32X, orxS32 &
 
   // Push T config section
   orxConfig_PushSection("T");
-  
+
   // Gets grid origin
   orxConfig_GetVector("GridOrigin", &vOrigin);
 
@@ -117,19 +117,23 @@ void TvB::GetGridSize(orxS32 &_rs32Width, orxS32 &_rs32Height) const
 
 void TvB::CleanGridLine(orxS32 _s32Line)
 {
+  // For all lines above cleaned one
   for(orxS32 i = _s32Line; i > 0; i--)
   {
+    // For all columns
     for(orxS32 j = 0; j < s32GridWidth; j++)
     {
-      // Copies line from above
+      // Copies value from above
       SetGridValue(j, i, GetGridValue(j, i - 1));
     }
   }
+
+  // For all columns (top line)
   for(orxS32 j = 0; j < s32GridWidth; j++)
   {
-    // Copies line from above
+    // Clears it
     SetGridValue(j, 0, 0);
-  }  
+  }
 }
 
 void TvB::LoadMenu()
@@ -144,22 +148,16 @@ orxSTATUS TvB::Start()
 {
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
-  // Pushes game section
-  orxConfig_PushSection(szConfigSectionGame);
-
   // Inits variables
   mfTime = orxFLOAT_0;
 
   // Updates game state
   meGameState = GameStateRun;
 
-  // Pops config section
-  orxConfig_PopSection();
-
-  // Inits games
+  // Inits sub-games
   InitT();
   InitB();
-  
+
   // Done!
   return eResult;
 }
@@ -203,6 +201,7 @@ void TvB::UpdateGame(const orxCLOCK_INFO &_rstInfo)
 
 void TvB::Update(const orxCLOCK_INFO &_rstInfo)
 {
+  // Screenshot?
   if(orxInput_IsActive("Screenshot") && orxInput_HasNewStatus("Screenshot"))
   {
     orxScreenshot_Capture();
@@ -243,6 +242,7 @@ void TvB::Update(const orxCLOCK_INFO &_rstInfo)
 
     case GameStateEnd:
     {
+      // Adds game over screen
       CreateObject("GameOver");
       meGameState = GameStateNumber;
       break;
@@ -254,14 +254,8 @@ orxSTATUS TvB::Init()
 {
   orxSTATUS eResult = orxSTATUS_SUCCESS;
 
-  orxSOUND *p = orxSound_CreateFromConfig("Kiss");
-  orxSound_Delete(p);
-  
   // Inits random seed
   orxMath_InitRandom(orxSystem_GetRealTime());
-  
-  // Pushes game section
-  orxConfig_PushSection(szConfigSectionGame);
 
   // Init values
   meGameState       = GameStateSplash;
@@ -274,12 +268,6 @@ orxSTATUS TvB::Init()
 
   // Inits splash screen
   InitSplash();
-
-  // Creates scene
-  mpoScene = CreateObject("Scene");
-  
-  // Pops config section
-  orxConfig_PopSection();
 
   // Adds event handler
   orxEvent_AddHandler(orxEVENT_TYPE_OBJECT, EventHandler);
@@ -310,7 +298,7 @@ void TvB::Exit()
   // Removes event handler
   orxEvent_RemoveHandler(orxEVENT_TYPE_OBJECT, EventHandler);
 
-  // Exits from games
+  // Exits from sub-games
   ExitT();
   ExitB();
 }
@@ -320,15 +308,13 @@ void TvB::BindObjects()
   // Pushes game section
   orxConfig_PushSection(szConfigSectionGame);
 
-  // Binds objects
+  // Binds objects (C++ class <-> config section)
   ScrollBindObject<TvBPaddle>("Paddle");
   ScrollBindObject<TvBBall>("Ball");
-  
   for(orxS32 i = 0; i < orxConfig_GetListCounter("BrickList"); i++)
   {
     ScrollBindObject<TvBBrick>(orxConfig_GetListString("BrickList", i));
   }
-
   for(orxS32 i = 0; i < orxConfig_GetListCounter("TetrominoList"); i++)
   {
     ScrollBindObject<TvBTetromino>(orxConfig_GetListString("TetrominoList", i));

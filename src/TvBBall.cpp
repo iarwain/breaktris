@@ -5,10 +5,13 @@
 //! Code
 void TvBBall::OnCreate()
 {
+  // Inits vars
   orxObject_GetSpeed(GetOrxObject(), &vSpeed);
   GetPosition(vInitPos);
-  
   bIn = orxTRUE;
+
+  /* Stores its GUID */
+  orxConfig_SetU64("GUID", GetGUID());
 }
 
 void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
@@ -20,7 +23,7 @@ void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
   {
     orxVector_Copy(&vSpeed, &orxVECTOR_0);
   }
-  
+
   // Going out?
   if(GetPosition(vPos).fY > orxConfig_GetFloat("Bottom"))
   {
@@ -34,9 +37,11 @@ void TvBBall::Update(const orxCLOCK_INFO &_rstInfo)
   }
   else
   {
+    // Updates its speed
     orxObject_SetSpeed(GetOrxObject(), &vSpeed);
   }
-  
+
+  // Debug: Warp input?
   if(orxInput_IsActive("Warp") && orxInput_HasNewStatus("Warp"))
   {
     Warp();
@@ -78,22 +83,21 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
 
   // Gets paddle
   poPaddle = TvB::GetInstance().GetNextObject<TvBPaddle>();
-  
+
   // Colliding with the paddle?
   if(_poCollider == poPaddle)
   {
     orxVECTOR vOffset, vPos1, vPos2;
-    
+
     // Adds sound
     poPaddle->AddSound("PaddleHit");
-    
+
     // Gets offset
     orxVector_Sub(&vOffset, &GetPosition(vPos1, orxTRUE), &poPaddle->GetPosition(vPos2, orxTRUE));
 
     // Updates speed
     PushConfigSection();
     vSpeed.fX += orxConfig_GetFloat("ReactionScale") * vOffset.fX;
-    
     orxVector_FromCartesianToSpherical(&vSpeed, &vSpeed);
     vSpeed.fRho += orxConfig_GetFloat("SpeedUp");
     orxVector_FromSphericalToCartesian(&vSpeed, &vSpeed);
@@ -105,7 +109,7 @@ orxBOOL TvBBall::OnCollide(ScrollObject *_poCollider, const orxSTRING _zPartName
     AddSound("BallHit");
   }
 
-  
+  // Done!
   return orxTRUE;
 }
 
@@ -121,7 +125,7 @@ void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
     orxObject_SetParent(GetOrxObject(), orxCamera_Get("BCamera"));
   }
 
-  // Resets potision & speed
+  // Resets position & speed
   SetPosition((_pvPos != orxNULL) ? *_pvPos : vInitPos);
   orxObject_SetSpeed(GetOrxObject(), (_pvSpeed != orxNULL) ? _pvSpeed : orxConfig_GetVector("Speed", &vSpeed));
 }
@@ -129,15 +133,17 @@ void TvBBall::Respawn(const orxVECTOR *_pvPos, const orxVECTOR *_pvSpeed)
 void TvBBall::Warp()
 {
   TvB::EventPayload stPayload;
-  orxEVENT stEvent;
-  TvB::EventID eEventID;
+  orxEVENT          stEvent;
+  TvB::EventID      eEventID;
 
+  // Inits event
   orxMemory_Zero(&stPayload, sizeof(TvB::EventPayload));
   GetPosition(stPayload.stWarp.vPos);
   vSpeed.fY *= -orxFLOAT_1;
   orxVector_Copy(&stPayload.stWarp.vSpeed, &vSpeed);
   eEventID = (bIn != orxFALSE) ? TvB::EventIDWarpOut : TvB::EventIDWarpIn;
 
+  // Updates status
   bIn = !bIn;
 
   // Disables ball

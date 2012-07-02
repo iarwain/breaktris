@@ -7,43 +7,33 @@ void TvBTetromino::OnCreate()
 {
   orxVECTOR vOffset, vPos, vOrigin;
   orxCOLOR stColor;
-  
+
   // Gets brick offset
   orxConfig_GetVector("TetroBrickSize", &vOffset);
-  
+
   // Goes to the T screen
   orxObject_SetParent(GetOrxObject(), orxCamera_Get("TCamera"));
 
   // Sets our start pos
   orxConfig_PushSection("T");
-  orxConfig_GetVector("GridOrigin", &vOrigin);  
+  orxConfig_GetVector("GridOrigin", &vOrigin);
   orxConfig_PopSection();
   orxConfig_GetVector("SpawnOffset", &vPos);
   orxVector_Mul(&vPos, &vPos, &vOffset);
   orxVector_Add(&vPos, &vPos, &vOrigin);
   SetPosition(vPos);
-  
-  // Gets color
-  orxConfig_GetVector("Color", &stColor.vRGB);
-  orxVector_Mulf(&stColor.vRGB, &stColor.vRGB, orxCOLOR_NORMALIZER);
-  stColor.fAlpha = orxFLOAT_1;
 
   // For all blocks
   for(orxS32 i = 0; i < orxConfig_GetListCounter("TetroPosList"); i++)
   {
     orxVECTOR vPos;
     TvBBrick *poBrick;
-    
+
     // Creates it
     poBrick = TvB::GetInstance().CreateObject<TvBBrick>("BrickTetro");
-    
-    // Sets its owner
+
+    // Sets as owner/parent
     orxObject_SetOwner(poBrick->GetOrxObject(), GetOrxObject());
-    
-    // Sets its color
-    poBrick->SetColor(stColor, orxFALSE);
-    
-    // Sets as parent
     orxObject_SetParent(poBrick->GetOrxObject(), GetOrxObject());
 
     // Gets its position
@@ -54,9 +44,17 @@ void TvBTetromino::OnCreate()
     poBrick->SetPosition(vPos, orxFALSE);
   }
 
+  // Gets color
+  orxConfig_GetVector("Color", &stColor.vRGB);
+  orxVector_Mulf(&stColor.vRGB, &stColor.vRGB, orxCOLOR_NORMALIZER);
+  stColor.fAlpha = orxFLOAT_1;
+
+  // Sets all blocks color
+  SetColor(stColor);
+
   // Sets rotation
   s32Rotation = 0;
-  
+
   // Moves
   Move(orxVECTOR_0, 0);
 }
@@ -78,18 +76,16 @@ void TvBTetromino::Land()
   {
     orxObject_SetOwner(pstChild, orxNULL);
   }
-  
-  // Adds sound on paddle
-  TvB::GetInstance().GetNextObject<TvBPaddle>()->AddSound("BlockPlaced");
-  
-  // Deletes
-  orxObject_SetLifeTime(GetOrxObject(), orxFLOAT_0);
+
+  // Adds land track
+  orxObject_AddTimeLineTrack(GetOrxObject(), "TetrominoLand");
 }
 
 void TvBTetromino::Transform(const orxVECTOR &_rvPos, orxS32 _s32Rotation)
 {
   orxVECTOR vPos, vOffset;
-  
+
+  // Pushes config section
   PushConfigSection();
 
   // Position
@@ -98,7 +94,7 @@ void TvBTetromino::Transform(const orxVECTOR &_rvPos, orxS32 _s32Rotation)
   orxVector_Mul(&vOffset, &vOffset, &_rvPos);
   orxVector_Add(&vPos, &vPos, &vOffset);
   SetPosition(vPos);
-  
+
   // Rotation
   s32Rotation += _s32Rotation;
   while(s32Rotation < 0)
@@ -108,6 +104,7 @@ void TvBTetromino::Transform(const orxVECTOR &_rvPos, orxS32 _s32Rotation)
   s32Rotation = s32Rotation % orxConfig_GetListCounter("RotationList");
   SetRotation(orxConfig_GetListFloat("RotationList", s32Rotation) * orxMATH_KF_DEG_TO_RAD);
 
+  // Pops config section
   PopConfigSection();
 }
 
@@ -115,6 +112,7 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
 {
   orxVECTOR vPos;
   orxU64    u64GUID;
+  orxS32    i = 0;
   orxBOOL   bResult = orxTRUE;
 
   // Gets our GUID
@@ -123,7 +121,6 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
   // Transforms
   const_cast<TvBTetromino *>(this)->Transform(_rvPos, _s32Rotation);
 
-  orxS32 i = 0;
   // For all children
   for(orxOBJECT *pstChild = orxObject_GetOwnedChild(GetOrxObject());
       pstChild != orxNULL;
@@ -134,7 +131,7 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
 
     // Gets its position
     orxObject_GetWorldPosition(pstChild, &vPos);
-    
+
     // Gets its grid index
     if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
     {
@@ -148,7 +145,7 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
       {
         // Updates result
         bResult = orxFALSE;
-        
+
         break;
       }
     }
@@ -156,16 +153,14 @@ orxBOOL TvBTetromino::IsValid(const orxVECTOR &_rvPos, orxS32 _s32Rotation) cons
     {
       // Updates result
       bResult = orxFALSE;
-      
+
       break;
     }
-    
-//    orxLOG("Pos<%d>: %ld, %ld", i, s32X, s32Y);
   }
-  
+
   // Transforms back
   const_cast<TvBTetromino *>(this)->Transform(*orxVector_Mulf(&vPos, &_rvPos, -orxFLOAT_1), -_s32Rotation);
-  
+
   // Done!
   return bResult;
 }
@@ -174,10 +169,10 @@ void TvBTetromino::Validate()
 {
   orxS32 s32Width, s32Height;
   orxU64 u64GUID;
-  
+
   // Gets GUID
   u64GUID = GetGUID();
-  
+
   // Gets grid size
   TvB::GetInstance().GetGridSize(s32Width, s32Height);
 
@@ -194,7 +189,7 @@ void TvBTetromino::Validate()
       }
     }
   }
-  
+
   // For all children
   for(orxOBJECT *pstChild = orxObject_GetOwnedChild(GetOrxObject());
       pstChild != orxNULL;
@@ -202,10 +197,10 @@ void TvBTetromino::Validate()
   {
     orxVECTOR vPos;
     orxS32    s32X, s32Y;
-    
+
     // Gets its position
     orxObject_GetWorldPosition(pstChild, &vPos);
-    
+
     // Gets its grid position
     if(TvB::GetInstance().GetGridPosition(vPos, s32X, s32Y) != orxSTATUS_FAILURE)
     {
@@ -219,10 +214,8 @@ orxBOOL TvBTetromino::Move(const orxVECTOR &_rvPos, orxS32 _s32Rotation)
 {
   orxBOOL bResult;
 
-  bResult = IsValid(_rvPos, _s32Rotation);
-  
   // Valid?
-  if(bResult != orxFALSE)
+  if((bResult = IsValid(_rvPos, _s32Rotation)) != orxFALSE)
   {
     // Transforms
     Transform(_rvPos, _s32Rotation);
@@ -230,7 +223,7 @@ orxBOOL TvBTetromino::Move(const orxVECTOR &_rvPos, orxS32 _s32Rotation)
     // Validate
     Validate();
   }
-  
+
   // Done!
   return bResult;
 }

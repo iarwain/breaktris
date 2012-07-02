@@ -1,5 +1,5 @@
-#ifndef __TVB_H_
-#define __TVB_H_
+#ifndef __TVB_H__
+#define __TVB_H__
 
 //! Includes
 #define __NO_SCROLLED__ // Uncomment this define to prevent the embedded editor (ScrollEd) from being compiled
@@ -125,4 +125,4 @@ private:
                 orxFLOAT        fLeftTime, fRightTime;
 };
 
-#endif // __TVB_H_
+#endif // __TVB_H__
