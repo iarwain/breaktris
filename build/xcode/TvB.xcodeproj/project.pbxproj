@@ -484,7 +484,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OBJROOT = build;
-				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = celld;
@@ -494,7 +494,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = ../../bin/mac;
 				USER_HEADER_SEARCH_PATHS = "../../include/Scroll/orx ../../include/Scroll ../../include";
-				VALID_ARCHS = "i386 ppc";
+				VALID_ARCHS = "i386 ppc x86_64";
 			};
 			name = Debug;
 		};
@@ -531,7 +531,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OBJROOT = build;
-				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -539,7 +539,7 @@
 				SKIP_INSTALL = YES;
 				SYMROOT = ../../bin/mac;
 				USER_HEADER_SEARCH_PATHS = "../../include/Scroll/orx ../../include/Scroll ../../include";
-				VALID_ARCHS = "i386 ppc";
+				VALID_ARCHS = "i386 ppc x86_64";
 			};
 			name = Release;
 		};
@@ -591,7 +591,7 @@
 				STRIP_STYLE = all;
 				SYMROOT = ../../bin/mac;
 				USER_HEADER_SEARCH_PATHS = "../../include ../../include/Scroll ../../include/Scroll/orx";
-				VALID_ARCHS = "i386 ppc";
+				VALID_ARCHS = "i386 ppc x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -629,7 +629,7 @@
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OBJROOT = build;
-				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				PREBINDING = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
@@ -637,7 +637,7 @@
 				SKIP_INSTALL = YES;
 				SYMROOT = ../../bin/mac;
 				USER_HEADER_SEARCH_PATHS = "../../include/Scroll/orx ../../include/Scroll ../../include";
-				VALID_ARCHS = "i386 ppc";
+				VALID_ARCHS = "i386 ppc x86_64";
 			};
 			name = Profile;
 		};
@@ -689,7 +689,7 @@
 				STRIP_STYLE = all;
 				SYMROOT = ../../bin/mac;
 				USER_HEADER_SEARCH_PATHS = "../../include ../../include/Scroll ../../include/Scroll/orx";
-				VALID_ARCHS = "i386 ppc";
+				VALID_ARCHS = "i386 ppc x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Profile;
@@ -739,7 +739,7 @@
 				STRIP_STYLE = all;
 				SYMROOT = ../../bin/mac;
 				USER_HEADER_SEARCH_PATHS = "../../include ../../include/Scroll ../../include/Scroll/orx";
-				VALID_ARCHS = "i386 ppc";
+				VALID_ARCHS = "i386 ppc x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Debug;
